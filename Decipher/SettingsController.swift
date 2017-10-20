@@ -50,7 +50,7 @@ extension SettingsController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "settingcell", for: indexPath) as! SettingCell
         cell.title.text = model.settings[indexPath.item].title
-        v.setFAIcon(icon: model.settings[indexPath.item].icon, iconSize: 22, forState: .normal)
+        cell.icon.setFAIcon(icon: model.settings[indexPath.item].icon, iconSize: 22, forState: .normal)
         cell.awakeFromNib()
         cell.selectionStyle = .none
         cell.backgroundColor = .clear
