@@ -72,6 +72,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     @objc func space() {
         
     }
+    @objc func openInBrowser() {
+        //open in preferred browser
+        //preferred browser is set in settings
+        //defualt browser is safari.
+        //use FAIcon for safari or chrome / preferred browser, ya feel Maxwell? ya I feel bruh. :D
+        print("open in preferred browswer")
+    }
+    var webController:WebViewController!
+    @objc func goToURL(url:URL) {
+        webController = WebViewController()
+        webController.url = url
+        webController.navigationItem.titleView = makeTitle(titleText: url.absoluteString)
+        webController.navigationItem.leftBarButtonItem = barButton(withIcon: .FAChevronLeft, withSelector: #selector(self.goBackToHistory))
+        webController.navigationItem.rightBarButtonItem = barButton(withIcon: .FASafari, withSelector: #selector(self.openInBrowser))
+        navigationController.pushViewController(webController, animated: true)
+    }
+    
+    @objc func goBackToHistory() {
+        navigationController.popViewController(animated: true)
+    }
     
     func showBar() {
 //        UIView.animate(withDuration: 0.3, animations: {

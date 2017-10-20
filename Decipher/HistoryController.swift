@@ -46,6 +46,7 @@ extension HistoryController: UITableViewDataSource, UITableViewDelegate {
         let cell = tableView.dequeueReusableCell(withIdentifier: "historycell", for: indexPath) as! HistoryCell
         cell.title.text = model.scanHistory[indexPath.item].title
         cell.awakeFromNib()
+        cell.selectionStyle = .none
         return cell
     }
     
@@ -54,4 +55,7 @@ extension HistoryController: UITableViewDataSource, UITableViewDelegate {
         return 50
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        (UIApplication.shared.delegate as! AppDelegate).goToURL(url: model.scanHistory[indexPath.item].url)
+    }
 }

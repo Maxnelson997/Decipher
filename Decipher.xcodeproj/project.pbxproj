@@ -22,6 +22,8 @@
 		79B6BDF81F9AB02F00A40DFA /* HistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B6BDF71F9AB02F00A40DFA /* HistoryCell.swift */; };
 		79B6BDFA1F9AB04200A40DFA /* SettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B6BDF91F9AB04200A40DFA /* SettingCell.swift */; };
 		79B6BDFC1F9AB04E00A40DFA /* DecipherLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B6BDFB1F9AB04E00A40DFA /* DecipherLabel.swift */; };
+		79B6BE001F9AB4A000A40DFA /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B6BDFF1F9AB4A000A40DFA /* WebViewController.swift */; };
+		79B6BE021F9AB75400A40DFA /* decipherlogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 79B6BE011F9AB75400A40DFA /* decipherlogo.png */; };
 		79DF4C7B1F99B677001CBB1D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79DF4C7A1F99B677001CBB1D /* AppDelegate.swift */; };
 		79DF4C7D1F99B677001CBB1D /* HistoryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79DF4C7C1F99B677001CBB1D /* HistoryController.swift */; };
 		79DF4C831F99B677001CBB1D /* Decipher.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 79DF4C811F99B677001CBB1D /* Decipher.xcdatamodeld */; };
@@ -70,6 +72,8 @@
 		79B6BDF71F9AB02F00A40DFA /* HistoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryCell.swift; sourceTree = "<group>"; };
 		79B6BDF91F9AB04200A40DFA /* SettingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingCell.swift; sourceTree = "<group>"; };
 		79B6BDFB1F9AB04E00A40DFA /* DecipherLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecipherLabel.swift; sourceTree = "<group>"; };
+		79B6BDFF1F9AB4A000A40DFA /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
+		79B6BE011F9AB75400A40DFA /* decipherlogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = decipherlogo.png; sourceTree = "<group>"; };
 		79DF4C771F99B677001CBB1D /* Decipher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Decipher.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		79DF4C7A1F99B677001CBB1D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		79DF4C7C1F99B677001CBB1D /* HistoryController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryController.swift; sourceTree = "<group>"; };
@@ -206,6 +210,7 @@
 		79DF4C791F99B677001CBB1D /* Decipher */ = {
 			isa = PBXGroup;
 			children = (
+				79B6BE011F9AB75400A40DFA /* decipherlogo.png */,
 				79B6BDF31F9AAFF300A40DFA /* View */,
 				79B6BDEE1F9AAFB700A40DFA /* Model */,
 				79DF4CB21F99D374001CBB1D /* Extension */,
@@ -247,6 +252,7 @@
 				79DF4C7C1F99B677001CBB1D /* HistoryController.swift */,
 				79DF4CAE1F99D329001CBB1D /* ScanController.swift */,
 				79DF4CB01F99D333001CBB1D /* SettingsController.swift */,
+				79B6BDFF1F9AB4A000A40DFA /* WebViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -388,6 +394,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				79B6BE021F9AB75400A40DFA /* decipherlogo.png in Resources */,
 				79B6BDE71F9A991500A40DFA /* Proxima Nova Thin.ttf in Resources */,
 				79DF4C881F99B677001CBB1D /* LaunchScreen.storyboard in Resources */,
 				79B6BDE61F9A991500A40DFA /* Proxima Nova Light.otf in Resources */,
@@ -572,6 +579,7 @@
 				79DF4C7B1F99B677001CBB1D /* AppDelegate.swift in Sources */,
 				79B6BDFC1F9AB04E00A40DFA /* DecipherLabel.swift in Sources */,
 				79DF4CB41F99D37D001CBB1D /* Extensions.swift in Sources */,
+				79B6BE001F9AB4A000A40DFA /* WebViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

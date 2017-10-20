@@ -19,6 +19,7 @@ class DecipherTable:UITableView {
     }
     
     func phaseTwo() {
+        self.separatorStyle = .none
         self.translatesAutoresizingMaskIntoConstraints = false
         self.backgroundColor = UIColor.MNOriginalDarkGray
         self.register(SettingCell.self, forCellReuseIdentifier: "settingcell")

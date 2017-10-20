@@ -17,7 +17,7 @@ class DetailsViewController: UIViewController {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor.MNOriginalDarkGray
         print(scannedCode!)
         
         
@@ -47,6 +47,7 @@ class DetailsViewController: UIViewController {
         let codeLabel = UILabel()
         codeLabel.textAlignment = .center
         codeLabel.backgroundColor = .white
+        codeLabel.layer.cornerRadius = 25
         codeLabel.translatesAutoresizingMaskIntoConstraints = false
         return codeLabel
     }()
@@ -54,9 +55,9 @@ class DetailsViewController: UIViewController {
     lazy var scanButton:UIButton = {
         let scanButton = UIButton(type: .system)
         scanButton.setTitle("Done", for: .normal)
-        scanButton.setTitleColor(.white, for: .normal)
-        scanButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
-        scanButton.backgroundColor = .orange
+        scanButton.setTitleColor(UIColor.green, for: .normal)
+        scanButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 25)
+        scanButton.backgroundColor = UIColor.MNTextGray//.orange
         scanButton.layer.cornerRadius = 25
         scanButton.addTarget(self, action: #selector(self.goBackToScan), for: .touchUpInside)
         scanButton.translatesAutoresizingMaskIntoConstraints = false
@@ -82,9 +83,7 @@ class ScanController: DecipherController, AVCaptureMetadataOutputObjectsDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        navigationItem.title = "Scanner"
-        view.backgroundColor = .white
-        
+
         captureDevice = AVCaptureDevice.default(for: .video)
         // Check if captureDevice returns a value and unwrap it
         if let captureDevice = captureDevice {
@@ -105,7 +104,7 @@ class ScanController: DecipherController, AVCaptureMetadataOutputObjectsDelegate
                 captureSession.startRunning()
                 
                 videoPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
-                videoPreviewLayer?.videoGravity = .resizeAspectFill
+//                videoPreviewLayer?.videoGravity = .resizeAspectFill
                 videoPreviewLayer?.frame = view.layer.bounds
                 view.layer.addSublayer(videoPreviewLayer!)
                 
