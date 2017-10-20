@@ -23,7 +23,8 @@ class Model {
     }
     
     func setup() {
-        
+        //retrieve scans from core data
+        scanHistory = []
     }
     
     var scanHistory:[HistoryModel]!

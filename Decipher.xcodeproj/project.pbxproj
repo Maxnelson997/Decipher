@@ -157,8 +157,8 @@
 		79B6BDF31F9AAFF300A40DFA /* View */ = {
 			isa = PBXGroup;
 			children = (
+				79B6BDFE1F9AB08900A40DFA /* View */,
 				79B6BDF41F9AAFFD00A40DFA /* TableViewCell */,
-				79B6BDF51F9AB01100A40DFA /* DecipherTable.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -168,9 +168,17 @@
 			children = (
 				79B6BDF71F9AB02F00A40DFA /* HistoryCell.swift */,
 				79B6BDF91F9AB04200A40DFA /* SettingCell.swift */,
-				79B6BDFB1F9AB04E00A40DFA /* DecipherLabel.swift */,
 			);
 			name = TableViewCell;
+			sourceTree = "<group>";
+		};
+		79B6BDFE1F9AB08900A40DFA /* View */ = {
+			isa = PBXGroup;
+			children = (
+				79B6BDF51F9AB01100A40DFA /* DecipherTable.swift */,
+				79B6BDFB1F9AB04E00A40DFA /* DecipherLabel.swift */,
+			);
+			name = View;
 			sourceTree = "<group>";
 		};
 		79DF4C6E1F99B677001CBB1D = {
