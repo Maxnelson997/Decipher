@@ -27,6 +27,19 @@ extension UIFont {
     }
 }
 
+extension UIView {
+    func getConstraintsTo(view: UIView, withInsets:UIEdgeInsets) -> [NSLayoutConstraint] {
+        print(withInsets)
+        
+        return [
+            self.leftAnchor.constraint(equalTo: view.leftAnchor, constant: withInsets.left),
+            self.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -1*(withInsets.right)),
+            self.topAnchor.constraint(equalTo: view.topAnchor, constant: withInsets.top),
+            self.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -1*(withInsets.bottom
+                ))
+        ]
+    }
+}
 
 extension UIColor {
     

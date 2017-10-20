@@ -15,6 +15,13 @@
 		79B6BDE81F9A991500A40DFA /* Proxima Nova Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 79B6BDE41F9A991500A40DFA /* Proxima Nova Regular.otf */; };
 		79B6BDE91F9A991500A40DFA /* Proxima Nova Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 79B6BDE51F9A991500A40DFA /* Proxima Nova Semibold.ttf */; };
 		79B6BDEB1F9AA03600A40DFA /* square.png in Resources */ = {isa = PBXBuildFile; fileRef = 79B6BDEA1F9AA03600A40DFA /* square.png */; };
+		79B6BDED1F9AAF3E00A40DFA /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B6BDEC1F9AAF3E00A40DFA /* Model.swift */; };
+		79B6BDF01F9AAFC500A40DFA /* HistoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B6BDEF1F9AAFC500A40DFA /* HistoryModel.swift */; };
+		79B6BDF21F9AAFE200A40DFA /* SettingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B6BDF11F9AAFE200A40DFA /* SettingModel.swift */; };
+		79B6BDF61F9AB01100A40DFA /* DecipherTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B6BDF51F9AB01100A40DFA /* DecipherTable.swift */; };
+		79B6BDF81F9AB02F00A40DFA /* HistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B6BDF71F9AB02F00A40DFA /* HistoryCell.swift */; };
+		79B6BDFA1F9AB04200A40DFA /* SettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B6BDF91F9AB04200A40DFA /* SettingCell.swift */; };
+		79B6BDFC1F9AB04E00A40DFA /* DecipherLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B6BDFB1F9AB04E00A40DFA /* DecipherLabel.swift */; };
 		79DF4C7B1F99B677001CBB1D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79DF4C7A1F99B677001CBB1D /* AppDelegate.swift */; };
 		79DF4C7D1F99B677001CBB1D /* HistoryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79DF4C7C1F99B677001CBB1D /* HistoryController.swift */; };
 		79DF4C831F99B677001CBB1D /* Decipher.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 79DF4C811F99B677001CBB1D /* Decipher.xcdatamodeld */; };
@@ -56,6 +63,13 @@
 		79B6BDE41F9A991500A40DFA /* Proxima Nova Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Proxima Nova Regular.otf"; sourceTree = "<group>"; };
 		79B6BDE51F9A991500A40DFA /* Proxima Nova Semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Proxima Nova Semibold.ttf"; sourceTree = "<group>"; };
 		79B6BDEA1F9AA03600A40DFA /* square.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = square.png; sourceTree = "<group>"; };
+		79B6BDEC1F9AAF3E00A40DFA /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		79B6BDEF1F9AAFC500A40DFA /* HistoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryModel.swift; sourceTree = "<group>"; };
+		79B6BDF11F9AAFE200A40DFA /* SettingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingModel.swift; sourceTree = "<group>"; };
+		79B6BDF51F9AB01100A40DFA /* DecipherTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecipherTable.swift; sourceTree = "<group>"; };
+		79B6BDF71F9AB02F00A40DFA /* HistoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryCell.swift; sourceTree = "<group>"; };
+		79B6BDF91F9AB04200A40DFA /* SettingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingCell.swift; sourceTree = "<group>"; };
+		79B6BDFB1F9AB04E00A40DFA /* DecipherLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecipherLabel.swift; sourceTree = "<group>"; };
 		79DF4C771F99B677001CBB1D /* Decipher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Decipher.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		79DF4C7A1F99B677001CBB1D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		79DF4C7C1F99B677001CBB1D /* HistoryController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryController.swift; sourceTree = "<group>"; };
@@ -130,6 +144,35 @@
 			path = Proxima_Nova;
 			sourceTree = "<group>";
 		};
+		79B6BDEE1F9AAFB700A40DFA /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				79B6BDEC1F9AAF3E00A40DFA /* Model.swift */,
+				79B6BDEF1F9AAFC500A40DFA /* HistoryModel.swift */,
+				79B6BDF11F9AAFE200A40DFA /* SettingModel.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		79B6BDF31F9AAFF300A40DFA /* View */ = {
+			isa = PBXGroup;
+			children = (
+				79B6BDF41F9AAFFD00A40DFA /* TableViewCell */,
+				79B6BDF51F9AB01100A40DFA /* DecipherTable.swift */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		79B6BDF41F9AAFFD00A40DFA /* TableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				79B6BDF71F9AB02F00A40DFA /* HistoryCell.swift */,
+				79B6BDF91F9AB04200A40DFA /* SettingCell.swift */,
+				79B6BDFB1F9AB04E00A40DFA /* DecipherLabel.swift */,
+			);
+			name = TableViewCell;
+			sourceTree = "<group>";
+		};
 		79DF4C6E1F99B677001CBB1D = {
 			isa = PBXGroup;
 			children = (
@@ -155,6 +198,8 @@
 		79DF4C791F99B677001CBB1D /* Decipher */ = {
 			isa = PBXGroup;
 			children = (
+				79B6BDF31F9AAFF300A40DFA /* View */,
+				79B6BDEE1F9AAFB700A40DFA /* Model */,
 				79DF4CB21F99D374001CBB1D /* Extension */,
 				79DF4C7A1F99B677001CBB1D /* AppDelegate.swift */,
 				79DF4CAD1F99D2C0001CBB1D /* Controller */,
@@ -504,13 +549,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				79B6BDF21F9AAFE200A40DFA /* SettingModel.swift in Sources */,
+				79B6BDED1F9AAF3E00A40DFA /* Model.swift in Sources */,
+				79B6BDF61F9AB01100A40DFA /* DecipherTable.swift in Sources */,
+				79B6BDF81F9AB02F00A40DFA /* HistoryCell.swift in Sources */,
+				79B6BDFA1F9AB04200A40DFA /* SettingCell.swift in Sources */,
 				79DF4CB11F99D333001CBB1D /* SettingsController.swift in Sources */,
 				79DF4C7D1F99B677001CBB1D /* HistoryController.swift in Sources */,
 				79DF4CAC1F99D2B7001CBB1D /* LoginController.swift in Sources */,
 				79DF4CB71F99D426001CBB1D /* DecipherController.swift in Sources */,
 				79DF4CAF1F99D329001CBB1D /* ScanController.swift in Sources */,
+				79B6BDF01F9AAFC500A40DFA /* HistoryModel.swift in Sources */,
 				79DF4C831F99B677001CBB1D /* Decipher.xcdatamodeld in Sources */,
 				79DF4C7B1F99B677001CBB1D /* AppDelegate.swift in Sources */,
+				79B6BDFC1F9AB04E00A40DFA /* DecipherLabel.swift in Sources */,
 				79DF4CB41F99D37D001CBB1D /* Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

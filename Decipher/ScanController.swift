@@ -60,7 +60,6 @@ class DetailsViewController: UIViewController {
         scanButton.layer.cornerRadius = 25
         scanButton.addTarget(self, action: #selector(self.goBackToScan), for: .touchUpInside)
         scanButton.translatesAutoresizingMaskIntoConstraints = false
-        
         return scanButton
     }()
     
