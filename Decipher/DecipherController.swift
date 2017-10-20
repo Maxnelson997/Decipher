@@ -12,7 +12,7 @@ class DecipherController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor.DBackground
+        view.backgroundColor = UIColor.MNOriginalDarkGray
         start()
     }
     

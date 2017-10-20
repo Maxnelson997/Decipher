@@ -9,6 +9,8 @@
 import UIKit
 import CoreData
 import Font_Awesome_Swift
+import AVFoundation
+import QRCodeReader
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -46,7 +48,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func createTitle(titleText:String) -> UIButton {
         let navTitle = UIButton(type: .custom)
         navTitle.setTitle(titleText, for: .normal)
-//        navTitle.titleLabel?.font = UIFont.init(customFont: .LatoBold, withSize: 20)
+        navTitle.titleLabel?.font = UIFont.init(customFont: .ProximaNovaLight, withSize: 20)
         navTitle.backgroundColor = UIColor.clear
         navTitle.setTitleColor(UIColor.darkGray, for: .normal)
         return navTitle
@@ -56,9 +58,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func makeTitle(titleText:String) -> UIButton {
         let navTitle = UIButton(type: .custom)
         navTitle.setTitle(titleText, for: .normal)
-//        navTitle.titleLabel?.font =
-        navTitle.setTitleColor(UIColor.darkGray, for: .normal)
+        navTitle.titleLabel?.font = UIFont.init(customFont: .ProximaNovaLight, withSize: 20)
+        navTitle.setTitleColor(UIColor.MNTextGray, for: .normal)
         return navTitle
+    }
+    
+    @objc func goBackToScan() {
+        scan = ScanController()
+        scan.navigationItem.titleView = makeTitle(titleText: "Scan")
+        scanNav.viewControllers = [scan]
     }
     
     @objc func space() {
@@ -66,50 +74,55 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func showBar() {
-        UIView.animate(withDuration: 0.3, animations: {
-           self.navigationController.navigationBar.transform = CGAffineTransform(translationX: 0, y: 0)
-        }) { (true) in }
+//        UIView.animate(withDuration: 0.3, animations: {
+//           self.navigationController.navigationBar.transform = CGAffineTransform(translationX: 0, y: 0)
+//        }) { (true) in }
     }
     
+    var scanNav:UINavigationController!
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        UINavigationBar.appearance().barTintColor = UIColor.darkGray
+
         
         login = LoginController()
         scan = ScanController()
+//        let scanWithin:QRCodeReaderViewController = scan.readerVC
         history = HistoryController()
         settings = SettingsController()
         
-        let scanNav = UINavigationController(rootViewController: scan)
+        scan.navigationItem.titleView = makeTitle(titleText: "Scan")
+        history.navigationItem.titleView = makeTitle(titleText: "History")
+        settings.navigationItem.titleView = makeTitle(titleText: "Settings")
+        
+        
+        scanNav = UINavigationController(rootViewController: scan)
         scanNav.tabBarItem.title = "scan"
-        scanNav.navigationItem.titleView = makeTitle(titleText: "scan")
-        scanNav.tabBarItem.setFAIcon(icon: .FAQrcode)
-    
-    
+        scanNav.tabBarItem.setFAIcon(icon: .FAQrcode, size: nil, orientation: .up, textColor: UIColor.white, backgroundColor: UIColor.clear, selectedTextColor: UIColor.MNGreen.withAlphaComponent(1), selectedBackgroundColor: .clear)
+        scanNav.tabBarItem.setTitleTextAttributes([NSAttributedStringKey.font:UIFont.init(customFont: .ProximaNovaLight, withSize: 16)!, NSAttributedStringKey.foregroundColor:UIColor.white], for: .normal)
+        
+//        let scanNav1 = UINavigationController(rootViewController: scanWithin)
+//        scanNav1.tabBarItem.title = "scan"
+//        scanNav1.tabBarItem.setFAIcon(icon: .FAQrcode, size: nil, orientation: .up, textColor: UIColor.white, backgroundColor: UIColor.clear, selectedTextColor: UIColor.MNGreen.withAlphaComponent(1), selectedBackgroundColor: .clear)
+//        scanNav1.tabBarItem.setTitleTextAttributes([NSAttributedStringKey.font:UIFont.init(customFont: .ProximaNovaLight, withSize: 16)!, NSAttributedStringKey.foregroundColor:UIColor.white], for: .normal)
         
         let historyNav = UINavigationController(rootViewController: history)
         historyNav.tabBarItem.title = "history"
-        historyNav.navigationItem.titleView = makeTitle(titleText: "history")
-        historyNav.tabBarItem.setFAIcon(icon: .FAHistory)
-        
+        historyNav.tabBarItem.setFAIcon(icon: .FAHistory, size: nil, orientation: .up, textColor: UIColor.white, backgroundColor: UIColor.clear, selectedTextColor: UIColor.MNGreen.withAlphaComponent(1), selectedBackgroundColor: .clear)
+        historyNav.tabBarItem.setTitleTextAttributes([NSAttributedStringKey.font:UIFont.init(customFont: .ProximaNovaLight, withSize: 16)!, NSAttributedStringKey.foregroundColor:UIColor.white], for: .normal)
         let settingsNav = UINavigationController(rootViewController: settings)
-        settings.navigationItem.titleView = makeTitle(titleText: "buttons")
-        settingsNav.title = "hmm"
-        
-        
-        settingsNav.navigationItem.titleView = makeTitle(titleText: "settings")
-        settingsNav.tabBarItem.setFAIcon(icon: .FASpaceShuttle)
+        settingsNav.tabBarItem.title = "settings"
+        settingsNav.tabBarItem.setFAIcon(icon: .FACogs, size: nil, orientation: .up, textColor: UIColor.white, backgroundColor: UIColor.clear, selectedTextColor: UIColor.MNGreen.withAlphaComponent(1), selectedBackgroundColor: .clear)
+        settingsNav.tabBarItem.setTitleTextAttributes([NSAttributedStringKey.font:UIFont.init(customFont: .ProximaNovaLight, withSize: 16)!, NSAttributedStringKey.foregroundColor:UIColor.white], for: .normal)
         
 //        scanNav.tabBarItem.setFAIcon(icon: FAType.FAHome)
         //        normalViewNav.tabBarItem.image = resizeImage(image: home_image.image!, targetSize: CGSize(width: 25, height: 25))
 
         tabBarController = UITabBarController()
-        tabBarController.tabBar.backgroundColor = UIColor.gray
-        tabBarController.tabBarItem.badgeColor = .yellow
-        tabBarController.tabBar.barTintColor = UIColor.PVibrantBlue
-    
+        tabBarController.tabBar.barTintColor = UIColor.MNGray
+        UIApplication.shared.statusBarStyle = .lightContent
+        UINavigationBar.appearance().barTintColor = UIColor.MNGray
 
-        tabBarController.viewControllers = [scan, history, settings]
+        tabBarController.viewControllers = [historyNav, scanNav, settingsNav]
         tabBarController.navigationItem.leftBarButtonItem = barButton(withIcon: .FAChevronLeft, withSelector: #selector(self.Logout))
         tabBarController.navigationItem.rightBarButtonItem = barButton(withIcon: .FAGrav, withSelector: #selector(self.space))
         
@@ -117,7 +130,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         navigationController.viewControllers = [login, tabBarController]
         navigationController.popToRootViewController(animated: false)
         
-        
+        tabBarController.selectedIndex = 1
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
         window?.backgroundColor = UIColor.DBackground

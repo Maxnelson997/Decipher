@@ -1,12 +1,15 @@
 PODS:
   - Font-Awesome-Swift (1.7.1)
+  - QRCodeReader.swift (8.0.3)
 
 DEPENDENCIES:
   - Font-Awesome-Swift (~> 1.7.1)
+  - QRCodeReader.swift (~> 8.0.3)
 
 SPEC CHECKSUMS:
   Font-Awesome-Swift: 5d950362121533489b2f6ac42e0e29db37fd970e
+  QRCodeReader.swift: 7c98a05c2544a7c8737853845428b4460273d50d
 
-PODFILE CHECKSUM: 829096ff49d73a2aff131d4df2dced7f7eb10628
+PODFILE CHECKSUM: d603ea6fd154fc793d3ceab53052c370659bddf3
 
 COCOAPODS: 1.2.1

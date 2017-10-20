@@ -13,19 +13,33 @@ func delay(_ delay: Double, closure: @escaping ()->()) {
 }
 
 
+enum CustomFont: String {
+
+    case ProximaNovaLight = "ProximaNova-Regular"
+    case ProximaNovaThin = "ProximaNovaT-Thin"
+    case ProximaNovaRegular = "ProximaNova-Light"
+    case ProximaNovaSemibold = "ProximaNova-Semibold"
+}
+
+extension UIFont {
+    convenience init?(customFont: CustomFont, withSize size: CGFloat) {
+        self.init(name: customFont.rawValue, size: size)
+    }
+}
+
+
 extension UIColor {
     
     open class var DBackground: UIColor { return UIColor.init(rgb: 0xB5DFFF) }
-    open class var PWhite: UIColor { return UIColor.init(rgb: 0xBFBFBF) }
-    open class var PBlueOne: UIColor { return UIColor.init(rgb: 0x1E313F) }
-    open class var PVibrantBlue: UIColor { return UIColor.init(rgb: 0x132A4B) }
-    open class var PLighterGray: UIColor { return UIColor.init(rgb: 0x646872) }
-    open class var PDarkerGray: UIColor { return UIColor.init(rgb: 0x323640) }
-    open class var PBorderGray: UIColor { return UIColor.init(rgb: 0x37424B) }
-    open class var PBorderGrayTwo: UIColor { return UIColor.init(rgb: 0x374B5B) }
-    open class var PLightBlue: UIColor { return UIColor.init(rgb: 0x34536B) }
-    open class var PButtonBlue: UIColor { return UIColor.init(rgb: 0x2e4a60) }
-    open class var PTan: UIColor { return UIColor.init(rgb: 0x9F9A86) }
+    open class var DBarBlack: UIColor { return UIColor.init(rgb: 0x232323) }
+    open class var MNDarkGray: UIColor { return UIColor.init(rgb: 0x1C1D1D) } //0x232323 //0x1D1D1D
+    open class var MNGray: UIColor { return UIColor.init(rgb:  0x292A2A) } //0x525252 //0x383939
+    open class var MNOriginalDarkGray: UIColor { return UIColor.init(rgb: 0x232323) }
+    open class var MNGreen: UIColor { return UIColor.init(rgb: 0x5CFF90) }
+    open class var MNBlue: UIColor { return UIColor.init(rgb: 0x7ECDFD) }
+    open class var MNTextGray: UIColor { return UIColor.init(rgb: 0xFEFDFE) }
+    open class var MNMagenta: UIColor { return UIColor.init(rgb: 0xEC34FF) }
+    
     
     convenience init(red: Int, green: Int, blue: Int) {
         assert(red >= 0 && red <= 255, "Invalid red component")

@@ -14,7 +14,7 @@ class LoginController:DecipherController {
     override func viewDidAppear(_ animated: Bool) {
         UIView.animate(withDuration: 0.3, animations: {
             self.navigationController?.navigationBar.transform = CGAffineTransform(translationX: 0, y: -200)
-        }) { (true) in }
+        }) { (false) in }
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -30,7 +30,7 @@ class LoginController:DecipherController {
         login.layer.cornerRadius = 8
         login.backgroundColor = login.titleLabel?.textColor.withAlphaComponent(0.8)
         login.setTitle("LOGIN BOI", for: .normal)
-        login.setTitleColor(UIColor.black, for: .normal)
+//        login.setTitleColor(UIColor.black, for: .normal)
         login.addTarget(deli, action: #selector(deli.Login), for: .touchUpInside)
         view.addSubview(login)
         NSLayoutConstraint.activate([
