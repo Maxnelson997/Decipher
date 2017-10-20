@@ -1,0 +1,6 @@
+framework module Pods_Decipher {
+  umbrella header "Pods-Decipher-umbrella.h"
+
+  export *
+  module * { export * }
+}
