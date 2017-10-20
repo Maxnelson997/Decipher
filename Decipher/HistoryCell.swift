@@ -9,11 +9,17 @@
 import UIKit
 
 class HistoryCell:UITableViewCell {
-    let title:DecipherLabel = DecipherLabel(size: 15)
+    let title:DecipherLabel = {
+        let l = DecipherLabel(size: 20)
+        l.layer.masksToBounds = true
+        l.layer.cornerRadius = 4
+        l.backgroundColor = UIColor.MNDarkGray
+        return l
+    }()
     override func awakeFromNib() {
-        contentView.backgroundColor = UIColor.MNOriginalDarkGray
+        contentView.backgroundColor = UIColor.clear
         contentView.addSubview(title)
-        NSLayoutConstraint.activate(title.getConstraintsTo(view: contentView, withInsets: .init(top: 0, left: 5, bottom: 0, right: 5)))
+        NSLayoutConstraint.activate(title.getConstraintsTo(view: contentView, withInsets: .init(top: 2, left: 5, bottom: 2, right: 5)))
     }
     override func prepareForReuse() {
         title.removeFromSuperview()

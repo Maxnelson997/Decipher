@@ -7,13 +7,44 @@
 //
 
 import UIKit
+import Font_Awesome_Swift
 
 class SettingCell:UITableViewCell {
-    let title:DecipherLabel = DecipherLabel(size: 15)
+    let title:DecipherLabel = {
+        let l = DecipherLabel(size: 20)
+        l.layer.masksToBounds = true
+        l.layer.cornerRadius = 4
+        l.backgroundColor = UIColor.clear
+        return l
+    }()
+    let icon:UIButton = {
+        let v = UIButton()
+        v.isUserInteractionEnabled = false
+        v.backgroundColor = UIColor.clear
+        v.setFAIcon(icon: .FAChevronRight, iconSize: 22, forState: .normal)
+        v.setFATitleColor(color: UIColor.MNTextGray)
+        return v
+    }()
+    
+    var stack:UIStackView = {
+       let s = UIStackView()
+        s.translatesAutoresizingMaskIntoConstraints = false
+        s.backgroundColor = .clear
+        s.distribution = .fill
+        s.axis = .horizontal
+        return s
+    }()
+
     override func awakeFromNib() {
-        contentView.backgroundColor = UIColor.MNOriginalDarkGray
-        contentView.addSubview(title)
-        NSLayoutConstraint.activate(title.getConstraintsTo(view: contentView, withInsets: .init(top: 0, left: 5, bottom: 0, right: 5)))
+        contentView.backgroundColor = UIColor.clear
+        contentView.addSubview(stack)
+        stack.addArrangedSubview(title)
+        stack.addArrangedSubview(icon)
+        NSLayoutConstraint.activate(stack.getConstraintsTo(view: contentView, withInsets: .init(top: 0, left: 10, bottom: 0, right: 10)))
+        NSLayoutConstraint.activate([
+            title.widthAnchor.constraint(lessThanOrEqualTo: stack.widthAnchor),
+            icon.widthAnchor.constraint(equalTo: stack.heightAnchor),
+            ])
     }
     override func prepareForReuse() {
         title.removeFromSuperview()

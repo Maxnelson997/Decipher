@@ -16,11 +16,7 @@ class LoginController:DecipherController {
             self.navigationController?.navigationBar.transform = CGAffineTransform(translationX: 0, y: -200)
         }) { (false) in }
     }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        deli.showBar()
-    }
-    
+
     let deli = UIApplication.shared.delegate as! AppDelegate
 
     override func start() {

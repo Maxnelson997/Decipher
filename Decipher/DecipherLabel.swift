@@ -36,5 +36,9 @@ class DecipherLabel:UILabel {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func drawText(in rect: CGRect) {
+        super.drawText(in: UIEdgeInsetsInsetRect(rect, UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 5)))
+    }
+    
     
 }

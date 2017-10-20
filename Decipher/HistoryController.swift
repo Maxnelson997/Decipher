@@ -16,7 +16,12 @@ class HistoryController: DecipherController {
     
     override func start() {
         view.addSubview(table)
-        NSLayoutConstraint.activate(table.getConstraintsTo(view: view, withInsets: .zero))
+        NSLayoutConstraint.activate([
+            table.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor),
+            table.leftAnchor.constraint(equalTo: view.leftAnchor),
+            table.rightAnchor.constraint(equalTo: view.rightAnchor),
+            table.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            ])
         reloadHistory()
     }
     
@@ -47,12 +52,13 @@ extension HistoryController: UITableViewDataSource, UITableViewDelegate {
         cell.title.text = model.scanHistory[indexPath.item].title
         cell.awakeFromNib()
         cell.selectionStyle = .none
+        cell.backgroundColor = .clear
         return cell
     }
     
     //delegate
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 50
+        return 60
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

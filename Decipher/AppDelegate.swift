@@ -58,6 +58,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func makeTitle(titleText:String) -> UIButton {
         let navTitle = UIButton(type: .custom)
         navTitle.setTitle(titleText, for: .normal)
+        navTitle.titleLabel?.adjustsFontSizeToFitWidth = true
         navTitle.titleLabel?.font = UIFont.init(customFont: .ProximaNovaLight, withSize: 20)
         navTitle.setTitleColor(UIColor.MNTextGray, for: .normal)
         return navTitle
@@ -86,17 +87,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         webController.navigationItem.titleView = makeTitle(titleText: url.absoluteString)
         webController.navigationItem.leftBarButtonItem = barButton(withIcon: .FAChevronLeft, withSelector: #selector(self.goBackToHistory))
         webController.navigationItem.rightBarButtonItem = barButton(withIcon: .FASafari, withSelector: #selector(self.openInBrowser))
+        //FASafari, FAChrome, FAFirefox, FAOpera
+        showBar()
         navigationController.pushViewController(webController, animated: true)
     }
     
     @objc func goBackToHistory() {
         navigationController.popViewController(animated: true)
+        UIView.animate(withDuration: 0.3, animations: {
+            self.navigationController?.navigationBar.transform = CGAffineTransform(translationX: 0, y: -200)
+        }) { (false) in }
     }
     
     func showBar() {
-//        UIView.animate(withDuration: 0.3, animations: {
-//           self.navigationController.navigationBar.transform = CGAffineTransform(translationX: 0, y: 0)
-//        }) { (true) in }
+        UIView.animate(withDuration: 0.3, animations: {
+           self.navigationController.navigationBar.transform = CGAffineTransform(translationX: 0, y: 0)
+        }) { (true) in }
     }
     
     var scanNav:UINavigationController!

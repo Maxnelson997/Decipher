@@ -16,10 +16,19 @@ class WebViewController: DecipherController {
     
     override func start() {
         view.addSubview(webView)
-        NSLayoutConstraint.activate(webView.getConstraintsTo(view: view, withInsets: .zero))
-        
+        webView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            webView.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor),
+            webView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            webView.rightAnchor.constraint(equalTo: view.rightAnchor),
+            webView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            ])
         let urlrequest = URLRequest(url: url!)
         webView.loadRequest(urlrequest)
     }
+    
+    
+
+    
 
 }
