@@ -28,7 +28,4 @@ class WebViewController: DecipherController {
     }
     
     
-
-    
-
 }
