@@ -47,23 +47,28 @@ class Model {
         //retrieve scans from core data
         scanHistory = []
         settings = [
-           SettingModel(title: "Save Scans In History", icon: .FAThumbsUp),
-           SettingModel(title: "Clear Recent Scans", icon: .FARemove),
-           SettingModel(title: "Preferred Browser", icon: .FASafari),
-           SettingModel(title: "Automatically Open Link", icon: .FAChevronRight),
-           SettingModel(title: "Sound Effects", icon: .FAChevronRight),
-           SettingModel(title: "Vibrate On Scan", icon: .FAChevronRight),
-           SettingModel(title: "Laser Animation", icon: .FAChevronRight),
-           SettingModel(title: "Help", icon: .FAAssistiveListeningSystems),
+           [
+            SettingModel(title: "Browser", icon: .FASafari, color: UIColor.MNGreen),
+           SettingModel(title: "Save Scans In History", icon: .FAThumbsUp, swit: true),
+           SettingModel(title: "Sound Effects", icon: .FAChevronRight, swit: true),
+           SettingModel(title: "Vibrate On Scan", icon: .FAChevronRight, swit: true),
+           SettingModel(title: "Laser Animation", icon: .FAChevronRight, swit: true),
+           ],
+           [
            SettingModel(title: "Rate", icon: .FAThumbsUp),
            SettingModel(title: "Share", icon: .FAShare),
-           SettingModel(title: "Instagram", icon: .FAInstagram),
-           SettingModel(title: "Our Website", icon: .FAChrome),
+           SettingModel(title: "Instagram", icon: .FAInstagram, color: UIColor.purple.withAlphaComponent(0.5)),
+           SettingModel(title: "Our Website", icon: .FAChrome, color: UIColor.orange),
+           ],
+           [
+            SettingModel(title: "Clear Recent Scans", icon: .FARemove, color: UIColor.red),
+            SettingModel(title: "Help", icon: .FAInfo, color: UIColor.yellow),
+           ]
         ]
     }
     
     var scanHistory:[HistoryModel]!
-    var settings:[SettingModel]!
+    var settings:[[SettingModel]]!
 
 }
 

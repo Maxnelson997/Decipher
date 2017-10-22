@@ -8,49 +8,43 @@
 
 import UIKit
 
-class SettingsController: DecipherController {
+class SettingsController: DecipherTableController {
     
     let model = Model.instance
     
-    let table = DecipherTable()
     
     override func start() {
-        view.addSubview(table)
-        NSLayoutConstraint.activate([
-            table.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor),
-            table.leftAnchor.constraint(equalTo: view.leftAnchor),
-            table.rightAnchor.constraint(equalTo: view.rightAnchor),
-            table.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-            ])
         reloadHistory()
     }
     
     func reloadHistory() {
-        if table.dataSource != nil {
-            table.reloadData()
+        if tableView.dataSource != nil {
+            tableView.reloadData()
         } else {
-            table.delegate = self
-            table.dataSource = self
+            tableView.delegate = self
+            tableView.dataSource = self
         }
     }
-    
-    
-}
 
-extension SettingsController: UITableViewDataSource, UITableViewDelegate {
     //datasource
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return model.settings.count
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return model.settings[section].count
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "settingcell", for: indexPath) as! SettingCell
-        cell.title.text = model.settings[indexPath.item].title
-        cell.icon.setFAIcon(icon: model.settings[indexPath.item].icon, iconSize: 22, forState: .normal)
+        cell.title.text = model.settings[indexPath.section][indexPath.item].title
+        if model.settings[indexPath.section][indexPath.item].isSwitch {
+            cell.isSwitch = true
+            cell.swit.isOn = model.settings[indexPath.section][indexPath.item].status
+        } else {
+            cell.icon.setFAIcon(icon: model.settings[indexPath.section][indexPath.item].icon, iconSize: 22, forState: .normal)
+            cell.icon.setFATitleColor(color: model.settings[indexPath.section][indexPath.item].iconColor)
+        }
         cell.awakeFromNib()
         cell.selectionStyle = .none
         cell.backgroundColor = .clear
@@ -58,11 +52,21 @@ extension SettingsController: UITableViewDataSource, UITableViewDelegate {
     }
     
     //delegate
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 70
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 //        (UIApplication.shared.delegate as! AppDelegate).goToURL(url: model.scanHistory[indexPath.item].url)
+    }
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if section == 0 {
+            return "preferences"
+        }
+        if section == 1 {
+            return "social"
+        }
+        return "extra"
     }
 }

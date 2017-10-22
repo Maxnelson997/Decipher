@@ -104,8 +104,9 @@ class ScanController: DecipherController, AVCaptureMetadataOutputObjectsDelegate
                 captureSession.startRunning()
                 
                 videoPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
-//                videoPreviewLayer?.videoGravity = .resizeAspectFill
+                videoPreviewLayer?.videoGravity = .resizeAspectFill
                 videoPreviewLayer?.frame = view.layer.bounds
+  
                 view.layer.addSublayer(videoPreviewLayer!)
                 
             } catch {
@@ -113,12 +114,7 @@ class ScanController: DecipherController, AVCaptureMetadataOutputObjectsDelegate
             }
             
         }
-        
-        view.addSubview(codeLabel)
-        codeLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        codeLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        codeLabel.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        codeLabel.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
+
         
     }
     
@@ -126,14 +122,7 @@ class ScanController: DecipherController, AVCaptureMetadataOutputObjectsDelegate
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    let codeLabel:UILabel = {
-        let codeLabel = UILabel()
-        codeLabel.backgroundColor = .white
-        codeLabel.translatesAutoresizingMaskIntoConstraints = false
-        return codeLabel
-    }()
-    
+
     let codeFrame:UIView = {
         let codeFrame = UIView()
         codeFrame.layer.borderColor = UIColor.green.cgColor
@@ -147,7 +136,6 @@ class ScanController: DecipherController, AVCaptureMetadataOutputObjectsDelegate
         if metadataObjects.count == 0 {
             //print("No Input Detected")
             codeFrame.frame = CGRect.zero
-            codeLabel.text = "No Data"
             return
         }
         
@@ -159,7 +147,7 @@ class ScanController: DecipherController, AVCaptureMetadataOutputObjectsDelegate
         
         guard let barcodeObject = videoPreviewLayer?.transformedMetadataObject(for: metadataObject) else { return }
         codeFrame.frame = barcodeObject.bounds
-        codeLabel.text = stringCodeValue
+ 
         
         // Play system sound with custom mp3 file
         if let customSoundUrl = Bundle.main.url(forResource: "beep-07", withExtension: "mp3") {
