@@ -10,7 +10,7 @@ import UIKit
 import CoreData
 import Font_Awesome_Swift
 import AVFoundation
-import QRCodeReader
+import Firebase
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -159,7 +159,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var scanNav:UINavigationController!
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-
+        
+        
+        FirebaseApp.configure()
         
         login = LoginController()
         scan = ScanController()
