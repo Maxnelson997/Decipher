@@ -17,7 +17,7 @@ class SettingCell:UITableViewCell {
         l.backgroundColor = UIColor.clear
         return l
     }()
-    
+
     let icon:UIButton = {
         let v = UIButton()
         v.isUserInteractionEnabled = false
@@ -28,6 +28,7 @@ class SettingCell:UITableViewCell {
         return v
     }()
     
+  
     var isSwitch:Bool = false
     
     let switContainer:UIView = {
@@ -52,6 +53,7 @@ class SettingCell:UITableViewCell {
     }()
 
     override func awakeFromNib() {
+        
         contentView.backgroundColor = UIColor.clear
         contentView.addSubview(stack)
         stack.addArrangedSubview(title)
@@ -74,6 +76,15 @@ class SettingCell:UITableViewCell {
     }
     override func prepareForReuse() {
         stack.removeFromSuperview()
+        if isSwitch {
+    
+            swit.removeFromSuperview()
+            switContainer.removeFromSuperview()
+            
+        } else {
+           icon.removeFromSuperview()
+        }
+        isSwitch = false
     }
 }
 

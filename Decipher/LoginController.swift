@@ -120,6 +120,17 @@ class LoginController:DecipherController, UITextFieldDelegate {
         return b
     }()
     
+    
+    
+    let signupButton:UIButton = {
+        let b = UIButton()
+        b.translatesAutoresizingMaskIntoConstraints = false
+        b.setTitle("sign up", for: .normal)
+        b.setTitleColor(UIColor.MNBlue, for: .normal)
+        b.titleLabel?.font = UIFont.init(customFont: .ProximaNovaSemibold, withSize: 20)
+        return b
+    }()
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -152,12 +163,14 @@ class LoginController:DecipherController, UITextFieldDelegate {
         credentialsContainer.backgroundColor = UIColor.MNGray.withAlphaComponent(0.8)
         credentialsContainer.layer.cornerRadius = 8
         
+        credentialsContainer.addSubview(loginButton)
+        
         let logoc = UIStackView()
         logoc.translatesAutoresizingMaskIntoConstraints = false
         logoc.axis = .horizontal
 
         logoc.addArrangedSubview(forgotButton)
-        logoc.addArrangedSubview(loginButton)
+        logoc.addArrangedSubview(signupButton)
         
         
         var distance:CGFloat = 0
@@ -191,10 +204,18 @@ class LoginController:DecipherController, UITextFieldDelegate {
             credentialsContainerContainer.heightAnchor.constraint(equalToConstant: 140 + boxDistance + 100),
             credentialsContainer.heightAnchor.constraint(equalToConstant: 140 + boxDistance + 100),
             boxs.centerXAnchor.constraint(equalTo: credentialsContainer.centerXAnchor),
-            boxs.centerYAnchor.constraint(equalTo: credentialsContainer.centerYAnchor),
+            boxs.centerYAnchor.constraint(equalTo: credentialsContainer.centerYAnchor, constant: -20),
             logoc.heightAnchor.constraint(equalToConstant: 50),
-            loginButton.widthAnchor.constraint(equalTo: logoc.widthAnchor, multiplier: 0.5),
+            signupButton.widthAnchor.constraint(equalTo: logoc.widthAnchor, multiplier: 0.5),
+            
             forgotButton.widthAnchor.constraint(equalTo: logoc.widthAnchor, multiplier: 0.5),
+            
+            
+            loginButton.heightAnchor.constraint(equalToConstant: 50),
+            loginButton.leftAnchor.constraint(equalTo: credentialsContainer.leftAnchor),
+            loginButton.rightAnchor.constraint(equalTo: credentialsContainer.rightAnchor),
+            loginButton.bottomAnchor.constraint(equalTo: credentialsContainer.bottomAnchor),
+            
             
             credentialsContainer.topAnchor.constraint(equalTo: credentialsContainerContainer.topAnchor),
             credentialsContainer.bottomAnchor.constraint(equalTo: credentialsContainerContainer.bottomAnchor),
@@ -211,11 +232,21 @@ class LoginController:DecipherController, UITextFieldDelegate {
         
         //        self.logo.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
         self.loginButton.addTarget(self, action: #selector(self.login), for: .touchUpInside)
+        forgotButton.addTarget(self, action: #selector(self.forgot), for: .touchUpInside)
+        signupButton.addTarget(self, action: #selector(self.signup), for: .touchUpInside)
 
     }
     
     @objc func login() {
         appDelegate.Login()
+    }
+    
+    @objc func signup() {
+        
+    }
+    
+    @objc func forgot() {
+        
     }
 
     

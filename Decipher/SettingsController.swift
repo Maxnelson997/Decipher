@@ -37,17 +37,19 @@ class SettingsController: DecipherTableController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "settingcell", for: indexPath) as! SettingCell
-        cell.title.text = model.settings[indexPath.section][indexPath.item].title
-        if model.settings[indexPath.section][indexPath.item].isSwitch {
+ 
+        let setting = model.settings[indexPath.section][indexPath.item]
+        cell.title.text = setting.title
+        if setting.hasSwitch {
             cell.isSwitch = true
-            cell.swit.isOn = model.settings[indexPath.section][indexPath.item].status
+            cell.swit.isOn = setting.status
         } else {
-            cell.icon.setFAIcon(icon: model.settings[indexPath.section][indexPath.item].icon, iconSize: 22, forState: .normal)
-            cell.icon.setFATitleColor(color: model.settings[indexPath.section][indexPath.item].iconColor)
+            cell.icon.setFAIcon(icon: setting.icon, iconSize: 22, forState: .normal)
+            cell.icon.setFATitleColor(color: setting.iconColor)
         }
-        cell.awakeFromNib()
         cell.selectionStyle = .none
         cell.backgroundColor = .clear
+        cell.awakeFromNib()
         return cell
     }
     

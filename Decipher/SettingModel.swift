@@ -20,7 +20,7 @@ struct SettingModel {
     var title:String!
     var icon:FAType!
     var status:Bool = false
-    var isSwitch:Bool = false
+    var hasSwitch:Bool = false
     var iconColor:UIColor!
     
     init(title:String) {
@@ -30,7 +30,8 @@ struct SettingModel {
     init(title:String, icon:FAType, swit:Bool? = false, status:Bool? = false, color:UIColor? = UIColor.MNTextGray) {
         self.title = title
         self.icon = icon
-        self.isSwitch = swit!
+        self.hasSwitch = swit!
+        self.status = status!
         self.iconColor = color
     }
 }
