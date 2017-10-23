@@ -13,6 +13,7 @@
 		790DEDB81F9E42B7003D0F8B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 790DEDB71F9E42B6003D0F8B /* GoogleService-Info.plist */; };
 		790DEDB91F9E42BD003D0F8B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 790DEDB71F9E42B6003D0F8B /* GoogleService-Info.plist */; };
 		790DEDBA1F9E42BD003D0F8B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 790DEDB71F9E42B6003D0F8B /* GoogleService-Info.plist */; };
+		790DEDBC1F9E46AD003D0F8B /* DButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790DEDBB1F9E46AD003D0F8B /* DButton.swift */; };
 		79871EDA1F9D616800F76F5D /* UserSettingsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79871ED91F9D616800F76F5D /* UserSettingsModel.swift */; };
 		79871EDD1F9D715B00F76F5D /* PTextFieldWithHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79871EDC1F9D715B00F76F5D /* PTextFieldWithHeader.swift */; };
 		79871EDF1F9D716B00F76F5D /* PTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79871EDE1F9D716B00F76F5D /* PTextField.swift */; };
@@ -71,6 +72,7 @@
 		58936C90E3CF02D8008F6466 /* Pods-Decipher.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Decipher.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Decipher/Pods-Decipher.debug.xcconfig"; sourceTree = "<group>"; };
 		784A152A39AA460B3925F9E0 /* Pods-DecipherTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DecipherTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DecipherTests/Pods-DecipherTests.debug.xcconfig"; sourceTree = "<group>"; };
 		790DEDB71F9E42B6003D0F8B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		790DEDBB1F9E46AD003D0F8B /* DButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DButton.swift; sourceTree = "<group>"; };
 		79871ED91F9D616800F76F5D /* UserSettingsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingsModel.swift; sourceTree = "<group>"; };
 		79871EDC1F9D715B00F76F5D /* PTextFieldWithHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PTextFieldWithHeader.swift; sourceTree = "<group>"; };
 		79871EDE1F9D716B00F76F5D /* PTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PTextField.swift; sourceTree = "<group>"; };
@@ -221,6 +223,7 @@
 				79B6BDF51F9AB01100A40DFA /* DecipherTable.swift */,
 				79B6BDFB1F9AB04E00A40DFA /* DecipherLabel.swift */,
 				79871EE41F9D8AAA00F76F5D /* SettingsLogic.swift */,
+				790DEDBB1F9E46AD003D0F8B /* DButton.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -625,6 +628,7 @@
 				79DF4CAC1F99D2B7001CBB1D /* LoginController.swift in Sources */,
 				79DF4CB71F99D426001CBB1D /* DecipherController.swift in Sources */,
 				79DF4CAF1F99D329001CBB1D /* ScanController.swift in Sources */,
+				790DEDBC1F9E46AD003D0F8B /* DButton.swift in Sources */,
 				79B6BDF01F9AAFC500A40DFA /* HistoryModel.swift in Sources */,
 				79DF4C831F99B677001CBB1D /* Decipher.xcdatamodeld in Sources */,
 				79DF4C7B1F99B677001CBB1D /* AppDelegate.swift in Sources */,

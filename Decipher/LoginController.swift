@@ -103,8 +103,8 @@ class LoginController:DecipherController, UITextFieldDelegate {
     fileprivate let passwordBox = PTextFieldWithHeader(customFont: .ProximaNovaLight, textSize: 20, headerSize: 15, placeholder: "password")
     
     
-    let loginButton:UIButton = {
-        let b = UIButton()
+    let loginButton:DButton = {
+        let b = DButton()
         b.translatesAutoresizingMaskIntoConstraints = false
         b.setTitle("login", for: .normal)
         b.setTitleColor(UIColor.MNBlue, for: .normal)
@@ -113,8 +113,8 @@ class LoginController:DecipherController, UITextFieldDelegate {
         return b
     }()
     
-    let skipButton:UIButton = {
-        let b = UIButton()
+    let skipButton:DButton = {
+        let b = DButton()
         b.translatesAutoresizingMaskIntoConstraints = false
         b.setTitle("skip", for: .normal)
         b.titleLabel?.textAlignment = .left
@@ -125,8 +125,8 @@ class LoginController:DecipherController, UITextFieldDelegate {
     
     
   
-    let forgotButton:UIButton = {
-        let b = UIButton()
+    let forgotButton:DButton = {
+        let b = DButton()
         b.translatesAutoresizingMaskIntoConstraints = false
         b.setTitle("forgot?", for: .normal)
         b.setTitleColor(UIColor.MNTextGrayNew, for: .normal)
@@ -134,8 +134,8 @@ class LoginController:DecipherController, UITextFieldDelegate {
         return b
     }()
     
-    let signupButton:UIButton = {
-        let b = UIButton()
+    let signupButton:DButton = {
+        let b = DButton()
         b.translatesAutoresizingMaskIntoConstraints = false
         b.setTitle("sign up", for: .normal)
         b.setTitleColor(UIColor.MNTextGrayNew, for: .normal)
@@ -254,19 +254,61 @@ class LoginController:DecipherController, UITextFieldDelegate {
         self.loginButton.addTarget(self, action: #selector(self.login), for: .touchUpInside)
         forgotButton.addTarget(self, action: #selector(self.forgot), for: .touchUpInside)
         signupButton.addTarget(self, action: #selector(self.signup), for: .touchUpInside)
-
+        skipButton.addTarget(self, action: #selector(self.skip), for: .touchUpInside)
     }
     
     @objc func login() {
-        appDelegate.Login()
-    }
+        if isSignupEnabled {
+            //sign up user for decipher in firebase console
+
     
+        } else {
+            
+            appDelegate.Login()
+        }
+  
+    }
+    var isSignupEnabled:Bool = false
     @objc func signup() {
-        
+        usernameBox.headerText = "EMAIL"
+        loginButton.text = "sign up"
+        skipButton.text = "cancel"
+        signupButton.alpha = 0
+        forgotButton.alpha = 0
+        isSignupEnabled = true
+        usernameBox.text = ""
+        passwordBox.text = ""
+        usernameBox.becomeFirstResponder()
     }
     
     @objc func forgot() {
-        
+        if isSignupEnabled {
+            //
+        } else {
+            //forgot
+        }
+    }
+    
+    @objc func skip() {
+        if isSignupEnabled {
+            //cancel
+            //go back to sign in
+            signupButton.alpha = 1
+            forgotButton.alpha = 1
+            usernameBox.headerText = "USERNAME"
+            loginButton.text = "login"
+            skipButton.text = "skip"
+            isSignupEnabled = false
+            if usernameBox.isFocused {
+                usernameBox.resignFirstResponder()
+            }
+            else if passwordBox.isFocused {
+                passwordBox.resignFirstResponder()
+            }
+        } else {
+            appDelegate.Login()
+            //skip
+        }
     }
 
     

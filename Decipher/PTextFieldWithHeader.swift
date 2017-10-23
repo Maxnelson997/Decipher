@@ -58,6 +58,21 @@ class PTextFieldWithHeader:PStack {
             field.text = newValue
         }
     }
+    
+    var headerText:String {
+        get {
+            return header.text!
+        } set {
+            UIView.animate(withDuration: 0.3, animations: {
+                self.header.alpha = 0
+            }, completion: { finished in
+                self.header.text = newValue
+                UIView.animate(withDuration: 0.3, animations: {
+                    self.header.alpha = 1
+                })
+            })
+        }
+    }
 
     fileprivate var stack:PStack = PStack(axis: .vertical)
     fileprivate var header:PLabel!
