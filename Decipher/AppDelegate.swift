@@ -35,9 +35,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
 
     
-    func barButton(withIcon: FAType, withSelector: Selector) -> UIBarButtonItem {
+    func barButton(withIcon: FAType, withSelector: Selector, color:UIColor = .white) -> UIBarButtonItem {
         let b = UIButton(type: .custom)
         b.setFAIcon(icon: withIcon, iconSize: 30, forState: UIControlState.normal)
+        b.setFATitleColor(color: color)
         b.contentHorizontalAlignment = .left
         b.frame = CGRect(x: 0, y: 0, width: 30, height: 0)
         b.addTarget(self, action: withSelector, for: .touchUpInside)
@@ -137,6 +138,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         historyNav.tabBarItem.setTitleTextAttributes([NSAttributedStringKey.font:UIFont.init(customFont: .ProximaNovaLight, withSize: 16)!, NSAttributedStringKey.foregroundColor:UIColor.white], for: .normal)
         let settingsNav = UINavigationController(rootViewController: settings)
         settingsNav.tabBarItem.title = "settings"
+        settingsNav.navigationItem.rightBarButtonItem = barButton(withIcon: .FASignOut, withSelector: #selector(self.Logout), color: UIColor.MNRed)
         settingsNav.tabBarItem.setFAIcon(icon: .FACogs, size: nil, orientation: .up, textColor: UIColor.white, backgroundColor: UIColor.clear, selectedTextColor: UIColor.MNGreen.withAlphaComponent(1), selectedBackgroundColor: .clear)
         settingsNav.tabBarItem.setTitleTextAttributes([NSAttributedStringKey.font:UIFont.init(customFont: .ProximaNovaLight, withSize: 16)!, NSAttributedStringKey.foregroundColor:UIColor.white], for: .normal)
         
