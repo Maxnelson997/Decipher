@@ -10,6 +10,11 @@
 		0CB74BE43E897EEC5318F7B6 /* Pods_DecipherUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E16B50259CF5080617884469 /* Pods_DecipherUITests.framework */; };
 		133025A0934EAA9C8D09AFE9 /* Pods_DecipherTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91BF05E128926D04C9C0FC30 /* Pods_DecipherTests.framework */; };
 		2183F6A0095094D9BBA9BA54 /* Pods_Decipher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50A4C0857D82D7D766DC490C /* Pods_Decipher.framework */; };
+		79871EDA1F9D616800F76F5D /* UserSettingsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79871ED91F9D616800F76F5D /* UserSettingsModel.swift */; };
+		79871EDD1F9D715B00F76F5D /* PTextFieldWithHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79871EDC1F9D715B00F76F5D /* PTextFieldWithHeader.swift */; };
+		79871EDF1F9D716B00F76F5D /* PTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79871EDE1F9D716B00F76F5D /* PTextField.swift */; };
+		79871EE11F9D717500F76F5D /* PLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79871EE01F9D717500F76F5D /* PLabel.swift */; };
+		79871EE31F9D717B00F76F5D /* PStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79871EE21F9D717B00F76F5D /* PStack.swift */; };
 		79B6BDE61F9A991500A40DFA /* Proxima Nova Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 79B6BDE21F9A991500A40DFA /* Proxima Nova Light.otf */; };
 		79B6BDE71F9A991500A40DFA /* Proxima Nova Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 79B6BDE31F9A991500A40DFA /* Proxima Nova Thin.ttf */; };
 		79B6BDE81F9A991500A40DFA /* Proxima Nova Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 79B6BDE41F9A991500A40DFA /* Proxima Nova Regular.otf */; };
@@ -60,6 +65,11 @@
 		50A4C0857D82D7D766DC490C /* Pods_Decipher.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Decipher.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		58936C90E3CF02D8008F6466 /* Pods-Decipher.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Decipher.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Decipher/Pods-Decipher.debug.xcconfig"; sourceTree = "<group>"; };
 		784A152A39AA460B3925F9E0 /* Pods-DecipherTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DecipherTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DecipherTests/Pods-DecipherTests.debug.xcconfig"; sourceTree = "<group>"; };
+		79871ED91F9D616800F76F5D /* UserSettingsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingsModel.swift; sourceTree = "<group>"; };
+		79871EDC1F9D715B00F76F5D /* PTextFieldWithHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PTextFieldWithHeader.swift; sourceTree = "<group>"; };
+		79871EDE1F9D716B00F76F5D /* PTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PTextField.swift; sourceTree = "<group>"; };
+		79871EE01F9D717500F76F5D /* PLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PLabel.swift; sourceTree = "<group>"; };
+		79871EE21F9D717B00F76F5D /* PStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PStack.swift; sourceTree = "<group>"; };
 		79B6BDE21F9A991500A40DFA /* Proxima Nova Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Proxima Nova Light.otf"; sourceTree = "<group>"; };
 		79B6BDE31F9A991500A40DFA /* Proxima Nova Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Proxima Nova Thin.ttf"; sourceTree = "<group>"; };
 		79B6BDE41F9A991500A40DFA /* Proxima Nova Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Proxima Nova Regular.otf"; sourceTree = "<group>"; };
@@ -137,6 +147,17 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		79871EDB1F9D714700F76F5D /* from projsync */ = {
+			isa = PBXGroup;
+			children = (
+				79871EE21F9D717B00F76F5D /* PStack.swift */,
+				79871EDE1F9D716B00F76F5D /* PTextField.swift */,
+				79871EE01F9D717500F76F5D /* PLabel.swift */,
+				79871EDC1F9D715B00F76F5D /* PTextFieldWithHeader.swift */,
+			);
+			name = "from projsync";
+			sourceTree = "<group>";
+		};
 		79B6BDE11F9A991500A40DFA /* Proxima_Nova */ = {
 			isa = PBXGroup;
 			children = (
@@ -154,6 +175,7 @@
 				79B6BDEC1F9AAF3E00A40DFA /* Model.swift */,
 				79B6BDEF1F9AAFC500A40DFA /* HistoryModel.swift */,
 				79B6BDF11F9AAFE200A40DFA /* SettingModel.swift */,
+				79871ED91F9D616800F76F5D /* UserSettingsModel.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -161,6 +183,7 @@
 		79B6BDF31F9AAFF300A40DFA /* View */ = {
 			isa = PBXGroup;
 			children = (
+				79871EDB1F9D714700F76F5D /* from projsync */,
 				79B6BDFE1F9AB08900A40DFA /* View */,
 				79B6BDF41F9AAFFD00A40DFA /* TableViewCell */,
 			);
@@ -564,10 +587,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				79871EDF1F9D716B00F76F5D /* PTextField.swift in Sources */,
 				79B6BDF21F9AAFE200A40DFA /* SettingModel.swift in Sources */,
 				79B6BDED1F9AAF3E00A40DFA /* Model.swift in Sources */,
 				79B6BDF61F9AB01100A40DFA /* DecipherTable.swift in Sources */,
+				79871EDD1F9D715B00F76F5D /* PTextFieldWithHeader.swift in Sources */,
+				79871EDA1F9D616800F76F5D /* UserSettingsModel.swift in Sources */,
 				79B6BDF81F9AB02F00A40DFA /* HistoryCell.swift in Sources */,
+				79871EE11F9D717500F76F5D /* PLabel.swift in Sources */,
 				79B6BDFA1F9AB04200A40DFA /* SettingCell.swift in Sources */,
 				79DF4CB11F99D333001CBB1D /* SettingsController.swift in Sources */,
 				79DF4C7D1F99B677001CBB1D /* HistoryController.swift in Sources */,
@@ -579,6 +606,7 @@
 				79DF4C7B1F99B677001CBB1D /* AppDelegate.swift in Sources */,
 				79B6BDFC1F9AB04E00A40DFA /* DecipherLabel.swift in Sources */,
 				79DF4CB41F99D37D001CBB1D /* Extensions.swift in Sources */,
+				79871EE31F9D717B00F76F5D /* PStack.swift in Sources */,
 				79B6BE001F9AB4A000A40DFA /* WebViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

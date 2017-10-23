@@ -59,6 +59,7 @@ class SettingCell:UITableViewCell {
         if isSwitch {
             stack.addArrangedSubview(switContainer)
             switContainer.addSubview(swit)
+            
             NSLayoutConstraint.activate([swit.centerXAnchor.constraint(equalTo: switContainer.centerXAnchor), swit.centerYAnchor.constraint(equalTo: switContainer.centerYAnchor)])
             v = switContainer
         } else {

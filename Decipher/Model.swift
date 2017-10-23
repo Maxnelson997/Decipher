@@ -44,32 +44,44 @@ class Model {
     Our Website*/
     
     func setup() {
+        //create user settings type. pull previous settings from core data. if no settings instatiate with default settings like so
+        //put core data here
+        //else instatiate like so
+        userSettings = UserSettings(browser: "Safari", browserIcon: .FASafari, saveScansInHistory: true, soundEffects: true, vibrateOnScan: true, laserAnimation: false)
+        
         //retrieve scans from core data
         scanHistory = []
+        
         settings = [
            [
-            SettingModel(title: "Browser", icon: .FASafari, color: UIColor.MNGreen),
-           SettingModel(title: "Save Scans In History", icon: .FAThumbsUp, swit: true),
-           SettingModel(title: "Sound Effects", icon: .FAChevronRight, swit: true),
-           SettingModel(title: "Vibrate On Scan", icon: .FAChevronRight, swit: true),
-           SettingModel(title: "Laser Animation", icon: .FAChevronRight, swit: true),
+           SettingModel(title: "Browser", icon: .FASafari, color: UIColor.MNGreen),
+           SettingModel(title: "Save Scans In History", icon: .FAThumbsUp, swit: true, status: userSettings.saveScansInHistory),
+           SettingModel(title: "Sound Effects", icon: .FAChevronRight, swit: true, status: userSettings.soundEffects),
+           SettingModel(title: "Vibrate On Scan", icon: .FAChevronRight, swit: true, status: userSettings.vibrateOnScan),
+           SettingModel(title: "Laser Animation", icon: .FAChevronRight, swit: true, status: userSettings.laserAnimation),
            ],
            [
            SettingModel(title: "Rate", icon: .FAThumbsUp),
            SettingModel(title: "Share", icon: .FAShare),
-           SettingModel(title: "Instagram", icon: .FAInstagram, color: UIColor.purple.withAlphaComponent(0.5)),
+           SettingModel(title: "Instagram", icon: .FAInstagram),
            SettingModel(title: "Our Website", icon: .FAChrome, color: UIColor.orange),
            ],
            [
             SettingModel(title: "Clear Recent Scans", icon: .FARemove, color: UIColor.red),
-            SettingModel(title: "Help", icon: .FAInfo, color: UIColor.yellow),
+            SettingModel(title: "Help", icon: .FAInfo),
            ]
         ]
+        
+        
+      
     }
     
     var scanHistory:[HistoryModel]!
     var settings:[[SettingModel]]!
+    var browsers:[String]!
+    var userSettings:UserSettings!
 
 }
+
 
 

@@ -12,6 +12,18 @@ func delay(_ delay: Double, closure: @escaping ()->()) {
     DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(delay * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: closure)
 }
 
+enum Direction:CGFloat {
+    case up = -1
+    case down = 1
+    case back = 0
+}
+extension UIView {
+    func animateView(direction:Direction, distance:CGFloat) {
+        UIView.animate(withDuration: 0.3) {
+            self.transform = CGAffineTransform(translationX: 0, y: distance * direction.rawValue)
+        }
+    }
+}
 
 enum CustomFont: String {
 
@@ -53,6 +65,7 @@ extension UIColor {
     open class var MNBlue: UIColor { return UIColor.init(rgb: 0x7ECDFD) }
     open class var MNTextGray: UIColor { return UIColor.init(rgb: 0xFEFDFE) }
     open class var MNMagenta: UIColor { return UIColor.init(rgb: 0xEC34FF) }
+    open class var MNRed:UIColor { return UIColor.init(rgb: 0xF40A0D) }
     
     
     convenience init(red: Int, green: Int, blue: Int) {

@@ -27,7 +27,7 @@ struct SettingModel {
         self.title = title
     }
     
-    init(title:String, icon:FAType, swit:Bool? = false, color:UIColor? = UIColor.MNTextGray) {
+    init(title:String, icon:FAType, swit:Bool? = false, status:Bool? = false, color:UIColor? = UIColor.MNTextGray) {
         self.title = title
         self.icon = icon
         self.isSwitch = swit!
