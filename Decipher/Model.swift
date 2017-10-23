@@ -11,6 +11,8 @@ import Font_Awesome_Swift
 
 class Model {
     static var instance : Model = Model()
+    var settingsLogic = SettingsLogic()
+    
     private init() {
         print("init singleton")
         setup()
@@ -21,6 +23,7 @@ class Model {
     
     class func destroy() {
         instance = Model()
+        
     }
     
     /*Unlock all scans $1
@@ -54,21 +57,21 @@ class Model {
         
         settings = [
            [
-           SettingModel(title: "Browser", icon: .FASafari, color: UIColor.MNGreen),
-           SettingModel(title: "Save Scans In History", icon: .FAThumbsUp, swit: true, status: userSettings.saveScansInHistory),
-           SettingModel(title: "Sound Effects", icon: .FAChevronRight, swit: true, status: userSettings.soundEffects),
-           SettingModel(title: "Vibrate On Scan", icon: .FAChevronRight, swit: true, status: userSettings.vibrateOnScan),
-           SettingModel(title: "Laser Animation", icon: .FAChevronRight, swit: true, status: userSettings.laserAnimation),
+            SettingModel(title: "Browser", icon: .FASafari, color: UIColor.MNGreen, selector: #selector(settingsLogic.browser)),
+            SettingModel(title: "Save Scans In History", icon: .FAThumbsUp, swit: true, status: userSettings.saveScansInHistory, selector: #selector(settingsLogic.saveScans)),
+            SettingModel(title: "Sound Effects", icon: .FAChevronRight, swit: true, status: userSettings.soundEffects, selector: #selector(settingsLogic.soundEffects)),
+            SettingModel(title: "Vibrate On Scan", icon: .FAChevronRight, swit: true, status: userSettings.vibrateOnScan, selector: #selector(settingsLogic.vibrateOnScan)),
+           SettingModel(title: "Laser Animation", icon: .FAChevronRight, swit: true, status: userSettings.laserAnimation, selector: #selector(settingsLogic.laserAnimation)),
            ],
            [
-           SettingModel(title: "Rate", icon: .FAThumbsUp),
-           SettingModel(title: "Share", icon: .FAShare),
-           SettingModel(title: "Instagram", icon: .FAInstagram),
-           SettingModel(title: "Our Website", icon: .FAChrome, color: UIColor.orange),
+           SettingModel(title: "Rate", icon: .FAThumbsUp, selector: #selector(settingsLogic.rate)),
+           SettingModel(title: "Share", icon: .FAShare, selector: #selector(settingsLogic.share)),
+           SettingModel(title: "Instagram", icon: .FAInstagram, selector: #selector(settingsLogic.instagram)),
+           SettingModel(title: "Our Website", icon: .FAChrome, color: UIColor.orange, selector: #selector(settingsLogic.ourWebsite)),
            ],
            [
-            SettingModel(title: "Clear Recent Scans", icon: .FARemove, color: UIColor.red),
-            SettingModel(title: "Help", icon: .FAInfo),
+            SettingModel(title: "Help", icon: .FAInfo, selector: #selector(settingsLogic.help)),
+            SettingModel(title: "Clear Recent Scans", icon: .FARemove, color: UIColor.red, selector: #selector(settingsLogic.clearScans)),
            ]
         ]
         

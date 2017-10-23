@@ -11,7 +11,7 @@ import UIKit
 class SettingsController: DecipherTableController {
     
     let model = Model.instance
-    
+
     
     override func start() {
         reloadHistory()
@@ -39,10 +39,13 @@ class SettingsController: DecipherTableController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "settingcell", for: indexPath) as! SettingCell
  
         let setting = model.settings[indexPath.section][indexPath.item]
+        cell.location = indexPath
         cell.title.text = setting.title
+        cell.addGestureRecognizer(UITapGestureRecognizer(target: model.settingsLogic, action: setting.selector))
         if setting.hasSwitch {
             cell.isSwitch = true
             cell.swit.isOn = setting.status
+            
         } else {
             cell.icon.setFAIcon(icon: setting.icon, iconSize: 22, forState: .normal)
             cell.icon.setFATitleColor(color: setting.iconColor)
@@ -52,6 +55,7 @@ class SettingsController: DecipherTableController {
         cell.awakeFromNib()
         return cell
     }
+
     
     //delegate
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -60,6 +64,7 @@ class SettingsController: DecipherTableController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 //        (UIApplication.shared.delegate as! AppDelegate).goToURL(url: model.scanHistory[indexPath.item].url)
+       
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {

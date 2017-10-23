@@ -15,6 +15,7 @@ class SettingCell:UITableViewCell {
         l.layer.masksToBounds = true
         l.layer.cornerRadius = 4
         l.backgroundColor = UIColor.clear
+        l.isUserInteractionEnabled = false
         return l
     }()
 
@@ -23,7 +24,7 @@ class SettingCell:UITableViewCell {
         v.isUserInteractionEnabled = false
         v.backgroundColor = UIColor.clear
         v.setFAIcon(icon: .FAChevronRight, iconSize: 22, forState: .normal)
-        
+        v.isUserInteractionEnabled = false
         v.setFATitleColor(color: UIColor.MNTextGray)
         return v
     }()
@@ -34,6 +35,7 @@ class SettingCell:UITableViewCell {
     let switContainer:UIView = {
         let v = UIView()
         v.translatesAutoresizingMaskIntoConstraints = false
+        v.isUserInteractionEnabled = false
         return v
     }()
     let swit:UISwitch = {
@@ -48,9 +50,16 @@ class SettingCell:UITableViewCell {
         s.translatesAutoresizingMaskIntoConstraints = false
         s.backgroundColor = .clear
         s.distribution = .fill
+        s.isUserInteractionEnabled = false
         s.axis = .horizontal
         return s
     }()
+    
+    var location:IndexPath!
+    
+    @objc func switchChanged() {
+        Model.instance.settings[location.section][location.item].status = swit.isOn
+    }
 
     override func awakeFromNib() {
         
@@ -61,7 +70,8 @@ class SettingCell:UITableViewCell {
         if isSwitch {
             stack.addArrangedSubview(switContainer)
             switContainer.addSubview(swit)
-            
+            swit.addTarget(self, action: #selector(self.switchChanged), for: .valueChanged)
+   
             NSLayoutConstraint.activate([swit.centerXAnchor.constraint(equalTo: switContainer.centerXAnchor), swit.centerYAnchor.constraint(equalTo: switContainer.centerYAnchor)])
             v = switContainer
         } else {
@@ -73,6 +83,8 @@ class SettingCell:UITableViewCell {
             title.widthAnchor.constraint(lessThanOrEqualTo: stack.widthAnchor),
             v.widthAnchor.constraint(equalTo: stack.heightAnchor),
             ])
+        
+        
     }
     override func prepareForReuse() {
         stack.removeFromSuperview()
@@ -85,6 +97,7 @@ class SettingCell:UITableViewCell {
            icon.removeFromSuperview()
         }
         isSwitch = false
+        location = nil
     }
 }
 

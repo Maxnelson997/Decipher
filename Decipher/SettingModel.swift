@@ -22,17 +22,19 @@ struct SettingModel {
     var status:Bool = false
     var hasSwitch:Bool = false
     var iconColor:UIColor!
+    var selector:Selector!
     
     init(title:String) {
         self.title = title
     }
     
-    init(title:String, icon:FAType, swit:Bool? = false, status:Bool? = false, color:UIColor? = UIColor.MNTextGray) {
+    init(title:String, icon:FAType, swit:Bool? = false, status:Bool? = false, color:UIColor? = UIColor.MNTextGray, selector:Selector? = nil) {
         self.title = title
         self.icon = icon
         self.hasSwitch = swit!
         self.status = status!
         self.iconColor = color
+        self.selector = selector
     }
 }
 

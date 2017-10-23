@@ -120,7 +120,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         scan.navigationItem.titleView = makeTitle(titleText: "Scan")
         history.navigationItem.titleView = makeTitle(titleText: "History")
         settings.navigationItem.titleView = makeTitle(titleText: "Settings")
-        
+        settings.navigationItem.rightBarButtonItem = barButton(withIcon: .FASignOut, withSelector: #selector(self.Logout), color: UIColor.MNRed)
         
         scanNav = UINavigationController(rootViewController: scan)
         scanNav.tabBarItem.title = "scan"
@@ -138,7 +138,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         historyNav.tabBarItem.setTitleTextAttributes([NSAttributedStringKey.font:UIFont.init(customFont: .ProximaNovaLight, withSize: 16)!, NSAttributedStringKey.foregroundColor:UIColor.white], for: .normal)
         let settingsNav = UINavigationController(rootViewController: settings)
         settingsNav.tabBarItem.title = "settings"
-        settingsNav.navigationItem.rightBarButtonItem = barButton(withIcon: .FASignOut, withSelector: #selector(self.Logout), color: UIColor.MNRed)
+      
         settingsNav.tabBarItem.setFAIcon(icon: .FACogs, size: nil, orientation: .up, textColor: UIColor.white, backgroundColor: UIColor.clear, selectedTextColor: UIColor.MNGreen.withAlphaComponent(1), selectedBackgroundColor: .clear)
         settingsNav.tabBarItem.setTitleTextAttributes([NSAttributedStringKey.font:UIFont.init(customFont: .ProximaNovaLight, withSize: 16)!, NSAttributedStringKey.foregroundColor:UIColor.white], for: .normal)
         
