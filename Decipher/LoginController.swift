@@ -101,32 +101,44 @@ class LoginController:DecipherController, UITextFieldDelegate {
 
     fileprivate let usernameBox = PTextFieldWithHeader(customFont: .ProximaNovaLight, textSize: 20, headerSize: 15, placeholder: "username")
     fileprivate let passwordBox = PTextFieldWithHeader(customFont: .ProximaNovaLight, textSize: 20, headerSize: 15, placeholder: "password")
-  
-    let forgotButton:UIButton = {
-        let b = UIButton()
-        b.translatesAutoresizingMaskIntoConstraints = false
-        b.setTitle("forgot?", for: .normal)
-        b.setTitleColor(UIColor.MNBlue, for: .normal)
-        b.titleLabel?.font = UIFont.init(customFont: .ProximaNovaSemibold, withSize: 20)
-        return b
-    }()
+    
     
     let loginButton:UIButton = {
         let b = UIButton()
         b.translatesAutoresizingMaskIntoConstraints = false
         b.setTitle("login", for: .normal)
         b.setTitleColor(UIColor.MNBlue, for: .normal)
+        b.titleLabel?.textAlignment = .right
+        b.titleLabel?.font = UIFont.init(customFont: .ProximaNovaSemibold, withSize: 20)
+        return b
+    }()
+    
+    let skipButton:UIButton = {
+        let b = UIButton()
+        b.translatesAutoresizingMaskIntoConstraints = false
+        b.setTitle("skip", for: .normal)
+        b.titleLabel?.textAlignment = .left
+        b.setTitleColor(UIColor.MNBlue, for: .normal)
         b.titleLabel?.font = UIFont.init(customFont: .ProximaNovaSemibold, withSize: 20)
         return b
     }()
     
     
+  
+    let forgotButton:UIButton = {
+        let b = UIButton()
+        b.translatesAutoresizingMaskIntoConstraints = false
+        b.setTitle("forgot?", for: .normal)
+        b.setTitleColor(UIColor.MNTextGrayNew, for: .normal)
+        b.titleLabel?.font = UIFont.init(customFont: .ProximaNovaSemibold, withSize: 20)
+        return b
+    }()
     
     let signupButton:UIButton = {
         let b = UIButton()
         b.translatesAutoresizingMaskIntoConstraints = false
         b.setTitle("sign up", for: .normal)
-        b.setTitleColor(UIColor.MNBlue, for: .normal)
+        b.setTitleColor(UIColor.MNTextGrayNew, for: .normal)
         b.titleLabel?.font = UIFont.init(customFont: .ProximaNovaSemibold, withSize: 20)
         return b
     }()
@@ -164,6 +176,7 @@ class LoginController:DecipherController, UITextFieldDelegate {
         credentialsContainer.layer.cornerRadius = 8
         
         credentialsContainer.addSubview(loginButton)
+        credentialsContainer.addSubview(skipButton)
         
         let logoc = UIStackView()
         logoc.translatesAutoresizingMaskIntoConstraints = false
@@ -212,7 +225,14 @@ class LoginController:DecipherController, UITextFieldDelegate {
             
             
             loginButton.heightAnchor.constraint(equalToConstant: 50),
-            loginButton.leftAnchor.constraint(equalTo: credentialsContainer.leftAnchor),
+            loginButton.widthAnchor.constraint(equalTo: credentialsContainer.widthAnchor, multiplier: 0.5),
+
+            skipButton.widthAnchor.constraint(equalTo: credentialsContainer.widthAnchor, multiplier: 0.5),
+            skipButton.rightAnchor.constraint(equalTo: loginButton.leftAnchor),
+            skipButton.leftAnchor.constraint(equalTo: credentialsContainer.leftAnchor),
+            skipButton.bottomAnchor.constraint(equalTo: credentialsContainer.bottomAnchor),
+            skipButton.heightAnchor.constraint(equalToConstant: 50),
+            loginButton.leftAnchor.constraint(equalTo: skipButton.rightAnchor),
             loginButton.rightAnchor.constraint(equalTo: credentialsContainer.rightAnchor),
             loginButton.bottomAnchor.constraint(equalTo: credentialsContainer.bottomAnchor),
             

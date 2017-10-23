@@ -66,6 +66,7 @@ extension UIColor {
     open class var MNTextGray: UIColor { return UIColor.init(rgb: 0xFEFDFE) }
     open class var MNMagenta: UIColor { return UIColor.init(rgb: 0xEC34FF) }
     open class var MNRed:UIColor { return UIColor.init(rgb: 0xF40A0D) }
+    open class var MNTextGrayNew:UIColor { return UIColor.init(rgb: 0x454B4E) } 
     
     
     convenience init(red: Int, green: Int, blue: Int) {
