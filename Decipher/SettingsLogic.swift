@@ -12,46 +12,57 @@ class SettingsLogic {
     
     let deli = UIApplication.shared.delegate as! AppDelegate
    
-    init() {
-        
-        
-        
-    }
+    init() {}
+    
     
     //preferences
+//    @objc func browser() {
+//        //go to preferred browser controller
+//    }
     
-    @objc func browser() {
-        //go to preferred browser controller
+    @objc func saveScans(sender:UISwitch) {
+        if !sender.isOn {
+            clearScans()
+        } else {
+            deli.history.reloadHistory()
+        }
+        Model.instance.userSettings.saveScansInHistory = sender.isOn
     }
     
-    @objc func saveScans() {
+    @objc func soundEffects(sender:UISwitch) {
         
     }
     
-    @objc func soundEffects() {
-        
-    }
-    
-    @objc func vibrateOnScan() {
+    @objc func vibrateOnScan(sender:UISwitch) {
         
     }
 
-    @objc func laserAnimation() {
+    @objc func laserAnimation(sender:UISwitch) {
         
     }
     
     //social
     
     @objc func rate() {
-        
+        //TO-DO: replace maxthedev with appstore review link
+        let url = URL(string: "http://maxthedev.com")!
+        if UIApplication.shared.canOpenURL(url) {
+            UIApplication.shared.open(url, options: ["":""], completionHandler: nil)
+        } else {
+            let alertController = UIAlertController(title: "Heads Up", message: "your preferred browser is not installed on your phone.", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+            alertController.addAction(okAction)
+            deli.settings.present(alertController, animated: true, completion: nil)
+        }
     }
     
     @objc func share() {
         let message = "yo, checkout this QR scanner. It's lit! 🔥"
+        //TO-DO: replace maxthedev with appstore review link
         let link = "maxthedev.com"
         let activityViewController: UIActivityViewController = UIActivityViewController(activityItems: [message,link], applicationActivities: nil)
-        activityViewController.popoverPresentationController?.sourceView = (UIApplication.shared.delegate as! AppDelegate).settings.view
-        (UIApplication.shared.delegate as! AppDelegate).settings.present(activityViewController, animated: true, completion: nil)
+        activityViewController.popoverPresentationController?.sourceView = deli.settings.view
+        deli.settings.present(activityViewController, animated: true, completion: nil)
     }
     
     @objc func instagram() {
@@ -69,11 +80,11 @@ class SettingsLogic {
     }
     
     //extra
-    
-    @objc func help() {
-        //go to help controller
-    }
-    
+//
+//    @objc func help() {
+//        //go to help controller
+//    }
+//
     @objc func clearScans() {
         //clear them scannaroonies.
         Model.instance.scanHistory = []
@@ -82,11 +93,11 @@ class SettingsLogic {
         let alertController = UIAlertController(title: "Yo!", message: "History Scans Cleared", preferredStyle: .alert)
         let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
         alertController.addAction(okAction)
-        (UIApplication.shared.delegate as! AppDelegate).history.present(alertController, animated: true, completion: nil)
+        deli.history.present(alertController, animated: true, completion: nil)
     }
     
     @objc func logout() {
-        (UIApplication.shared.delegate as! AppDelegate).Logout()
+        deli.Logout()
     }
 
     

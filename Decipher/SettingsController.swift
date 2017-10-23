@@ -41,12 +41,17 @@ class SettingsController: DecipherTableController {
         let setting = model.settings[indexPath.section][indexPath.item]
         cell.location = indexPath
         cell.title.text = setting.title
-        cell.addGestureRecognizer(UITapGestureRecognizer(target: model.settingsLogic, action: setting.selector))
+        cell.gestureRecognizers?.removeAll()
+        cell.swit.removeTarget(model.settingsLogic, action: nil, for: .allTouchEvents)
+        
         if setting.hasSwitch {
             cell.isSwitch = true
             cell.swit.isOn = setting.status
-            
+            cell.swit.tag = indexPath.item
+          
+            cell.swit.addTarget(model.settingsLogic, action: setting.selector, for: .valueChanged)
         } else {
+            cell.addGestureRecognizer(UITapGestureRecognizer(target: model.settingsLogic, action: setting.selector))
             cell.icon.setFAIcon(icon: setting.icon, iconSize: 22, forState: .normal)
             cell.icon.setFATitleColor(color: setting.iconColor)
         }

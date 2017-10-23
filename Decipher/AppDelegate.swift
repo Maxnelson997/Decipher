@@ -33,6 +33,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         navigationController.popToViewController(login, animated: true)
     }
     
+    @objc func goToClear() {
+        Model.instance.settingsLogic.clearScans()
+    }
+    
 
     
     func barButton(withIcon: FAType, withSelector: Selector, color:UIColor = .white) -> UIBarButtonItem {
@@ -74,6 +78,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     @objc func space() {
         
     }
+    var on:Bool = false
+    @objc func turnOnLight() {
+        
+        guard let device = AVCaptureDevice.default(for: .video) else { return }
+        
+        if device.hasTorch {
+            do {
+                try device.lockForConfiguration()
+                
+                if on == false {
+                    device.torchMode = .on
+                } else {
+                    device.torchMode = .off
+                }
+                
+                on = !on
+                
+                device.unlockForConfiguration()
+            } catch {
+                print("Torch could not be used")
+            }
+        } else {
+            print("Torch is not available")
+        }
+    }
+    
     @objc func openInBrowser() {
         //open in preferred browser
         //preferred browser is set in settings
@@ -95,7 +125,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if UIApplication.shared.canOpenURL(webController.url) {
             UIApplication.shared.open(webController.url, options: ["":""], completionHandler: nil)
         } else {
-            let alertController = UIAlertController(title: "Sorry", message: "your preffered browser is not installed on your phone.", preferredStyle: .alert)
+            let alertController = UIAlertController(title: "Heads Up", message: "your preferred browser is not installed on your phone.", preferredStyle: .alert)
             let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
             alertController.addAction(okAction)
             webController.present(alertController, animated: true, completion: nil)
@@ -141,6 +171,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         history.navigationItem.titleView = makeTitle(titleText: "History")
         settings.navigationItem.titleView = makeTitle(titleText: "Settings")
         settings.navigationItem.rightBarButtonItem = barButton(withIcon: .FASignOut, withSelector: #selector(self.Logout), color: UIColor.MNRed)
+        history.navigationItem.rightBarButtonItem = barButton(withIcon: .FARemove, withSelector: #selector(self.goToClear), color: UIColor.MNRed)
+        scan.navigationItem.rightBarButtonItem = barButton(withIcon: .FALightbulbO, withSelector: #selector(self.turnOnLight))
+//        scan.navigationItem.rightBarButtonItem = barButton(withIcon: .FALightbulbO, withSelector: #selector(self.turnOnLight), color: UIColor.MNRed)
         
         scanNav = UINavigationController(rootViewController: scan)
         scanNav.tabBarItem.title = "scan"

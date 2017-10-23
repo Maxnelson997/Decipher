@@ -56,7 +56,10 @@ class SettingCell:UITableViewCell {
     var location:IndexPath!
     
     @objc func switchChanged() {
+        print("old status \(Model.instance.settings[location.section][location.item].status)")
         Model.instance.settings[location.section][location.item].status = swit.isOn
+        print( "new status \(Model.instance.settings[location.section][location.item].status)")
+//        (UIApplication.shared.delegate as! AppDelegate).settings.
     }
 
     override func awakeFromNib() {
@@ -65,11 +68,12 @@ class SettingCell:UITableViewCell {
         contentView.addSubview(stack)
         stack.addArrangedSubview(title)
         var v:UIView = icon
+        title.isUserInteractionEnabled = true
         if isSwitch {
             stack.addArrangedSubview(switContainer)
             switContainer.addSubview(swit)
             swit.addTarget(self, action: #selector(self.switchChanged), for: .valueChanged)
-   
+            title.isUserInteractionEnabled = false
             NSLayoutConstraint.activate([swit.centerXAnchor.constraint(equalTo: switContainer.centerXAnchor), swit.centerYAnchor.constraint(equalTo: switContainer.centerYAnchor)])
             v = switContainer
         } else {

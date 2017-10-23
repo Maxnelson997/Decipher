@@ -58,10 +58,10 @@ class Model {
         settings = [
            [
 //            SettingModel(title: "Browser", icon: .FASafari, color: UIColor.MNGreen, selector: #selector(settingsLogic.browser)),
-            SettingModel(title: "Save Scans In History", icon: .FAThumbsUp, swit: true, status: userSettings.saveScansInHistory, selector: #selector(settingsLogic.saveScans)),
-            SettingModel(title: "Sound Effects", icon: .FAChevronRight, swit: true, status: userSettings.soundEffects, selector: #selector(settingsLogic.soundEffects)),
-            SettingModel(title: "Vibrate On Scan", icon: .FAChevronRight, swit: true, status: userSettings.vibrateOnScan, selector: #selector(settingsLogic.vibrateOnScan)),
-           SettingModel(title: "Laser Animation", icon: .FAChevronRight, swit: true, status: userSettings.laserAnimation, selector: #selector(settingsLogic.laserAnimation)),
+            SettingModel(title: "Save Scans In History", icon: .FAThumbsUp, swit: true, status: userSettings.saveScansInHistory, selector: #selector(settingsLogic.saveScans(sender:))),
+            SettingModel(title: "Sound Effects", icon: .FAChevronRight, swit: true, status: userSettings.soundEffects, selector: #selector(settingsLogic.soundEffects(sender:))),
+            SettingModel(title: "Vibrate On Scan", icon: .FAChevronRight, swit: true, status: userSettings.vibrateOnScan, selector: #selector(settingsLogic.vibrateOnScan(sender:))),
+           SettingModel(title: "Laser Animation", icon: .FAChevronRight, swit: true, status: userSettings.laserAnimation, selector: #selector(settingsLogic.laserAnimation(sender:))),
            ],
            [
            SettingModel(title: "Rate", icon: .FAThumbsUp, selector: #selector(settingsLogic.rate)),
