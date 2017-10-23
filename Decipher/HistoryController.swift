@@ -50,7 +50,15 @@ class HistoryController: DecipherTableController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        (UIApplication.shared.delegate as! AppDelegate).goToURL(url: model.scanHistory[indexPath.item].url)
+        if model.scanHistory[indexPath.item].isURL {
+            (UIApplication.shared.delegate as! AppDelegate).goToURL(url: model.scanHistory[indexPath.item].url)
+        } else {
+            let alertController = UIAlertController(title: "Bruh..", message: "This is not a valid web URL.", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+            alertController.addAction(okAction)
+            present(alertController, animated: true, completion: nil)
+        }
+        
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {

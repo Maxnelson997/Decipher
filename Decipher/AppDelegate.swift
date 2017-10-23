@@ -80,6 +80,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //defualt browser is safari.
         //use FAIcon for safari or chrome / preferred browser, ya feel Maxwell? ya I feel bruh. :D
         print("open in preferred browswer")
+        
+        var browser = Model.instance.userSettings.browser
+        if browser == "opera" {
+            browser = "opera://open-url?url=http://"
+        } else if browser == "firefox" {
+            browser = "firefox://open-url?url=http://"
+        } else if browser == "chrome" {
+            browser = "googlechrome://"
+        } else if browser == "safari" {
+            browser = "safari://"
+        }
+        
+        if UIApplication.shared.canOpenURL(webController.url) {
+            UIApplication.shared.open(webController.url, options: ["":""], completionHandler: nil)
+        } else {
+            let alertController = UIAlertController(title: "Sorry", message: "your preffered browser is not installed on your phone.", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+            alertController.addAction(okAction)
+            webController.present(alertController, animated: true, completion: nil)
+        }
     }
     var webController:WebViewController!
     @objc func goToURL(url:URL) {
