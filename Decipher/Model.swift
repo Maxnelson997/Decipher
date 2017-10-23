@@ -57,7 +57,7 @@ class Model {
         
         settings = [
            [
-            SettingModel(title: "Browser", icon: .FASafari, color: UIColor.MNGreen, selector: #selector(settingsLogic.browser)),
+//            SettingModel(title: "Browser", icon: .FASafari, color: UIColor.MNGreen, selector: #selector(settingsLogic.browser)),
             SettingModel(title: "Save Scans In History", icon: .FAThumbsUp, swit: true, status: userSettings.saveScansInHistory, selector: #selector(settingsLogic.saveScans)),
             SettingModel(title: "Sound Effects", icon: .FAChevronRight, swit: true, status: userSettings.soundEffects, selector: #selector(settingsLogic.soundEffects)),
             SettingModel(title: "Vibrate On Scan", icon: .FAChevronRight, swit: true, status: userSettings.vibrateOnScan, selector: #selector(settingsLogic.vibrateOnScan)),
@@ -70,8 +70,9 @@ class Model {
            SettingModel(title: "Our Website", icon: .FAChrome, color: UIColor.orange, selector: #selector(settingsLogic.ourWebsite)),
            ],
            [
-            SettingModel(title: "Help", icon: .FAInfo, selector: #selector(settingsLogic.help)),
+//            SettingModel(title: "Help", icon: .FAInfo, selector: #selector(settingsLogic.help)),
             SettingModel(title: "Clear Recent Scans", icon: .FARemove, color: UIColor.red, selector: #selector(settingsLogic.clearScans)),
+            SettingModel(title: "Logout Of Decipher", icon: .FASignOut, color: UIColor.red, selector: #selector(settingsLogic.logout)),
            ]
         ]
         

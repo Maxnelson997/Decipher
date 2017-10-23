@@ -16,6 +16,7 @@
 		79871EE11F9D717500F76F5D /* PLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79871EE01F9D717500F76F5D /* PLabel.swift */; };
 		79871EE31F9D717B00F76F5D /* PStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79871EE21F9D717B00F76F5D /* PStack.swift */; };
 		79871EE51F9D8AAA00F76F5D /* SettingsLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79871EE41F9D8AAA00F76F5D /* SettingsLogic.swift */; };
+		79871EE81F9DA5C300F76F5D /* HelpController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79871EE71F9DA5C300F76F5D /* HelpController.swift */; };
 		79B6BDE61F9A991500A40DFA /* Proxima Nova Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 79B6BDE21F9A991500A40DFA /* Proxima Nova Light.otf */; };
 		79B6BDE71F9A991500A40DFA /* Proxima Nova Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 79B6BDE31F9A991500A40DFA /* Proxima Nova Thin.ttf */; };
 		79B6BDE81F9A991500A40DFA /* Proxima Nova Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 79B6BDE41F9A991500A40DFA /* Proxima Nova Regular.otf */; };
@@ -72,6 +73,7 @@
 		79871EE01F9D717500F76F5D /* PLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PLabel.swift; sourceTree = "<group>"; };
 		79871EE21F9D717B00F76F5D /* PStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PStack.swift; sourceTree = "<group>"; };
 		79871EE41F9D8AAA00F76F5D /* SettingsLogic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsLogic.swift; sourceTree = "<group>"; };
+		79871EE71F9DA5C300F76F5D /* HelpController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpController.swift; sourceTree = "<group>"; };
 		79B6BDE21F9A991500A40DFA /* Proxima Nova Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Proxima Nova Light.otf"; sourceTree = "<group>"; };
 		79B6BDE31F9A991500A40DFA /* Proxima Nova Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Proxima Nova Thin.ttf"; sourceTree = "<group>"; };
 		79B6BDE41F9A991500A40DFA /* Proxima Nova Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Proxima Nova Regular.otf"; sourceTree = "<group>"; };
@@ -158,6 +160,14 @@
 				79871EDC1F9D715B00F76F5D /* PTextFieldWithHeader.swift */,
 			);
 			name = "from projsync";
+			sourceTree = "<group>";
+		};
+		79871EE61F9DA5A800F76F5D /* settings-controllers */ = {
+			isa = PBXGroup;
+			children = (
+				79871EE71F9DA5C300F76F5D /* HelpController.swift */,
+			);
+			name = "settings-controllers";
 			sourceTree = "<group>";
 		};
 		79B6BDE11F9A991500A40DFA /* Proxima_Nova */ = {
@@ -273,6 +283,7 @@
 		79DF4CAD1F99D2C0001CBB1D /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				79871EE61F9DA5A800F76F5D /* settings-controllers */,
 				79DF4CB61F99D426001CBB1D /* DecipherController.swift */,
 				79DF4CAB1F99D2B7001CBB1D /* LoginController.swift */,
 				79DF4C7C1F99B677001CBB1D /* HistoryController.swift */,
@@ -599,6 +610,7 @@
 				79B6BDF81F9AB02F00A40DFA /* HistoryCell.swift in Sources */,
 				79871EE11F9D717500F76F5D /* PLabel.swift in Sources */,
 				79B6BDFA1F9AB04200A40DFA /* SettingCell.swift in Sources */,
+				79871EE81F9DA5C300F76F5D /* HelpController.swift in Sources */,
 				79871EE51F9D8AAA00F76F5D /* SettingsLogic.swift in Sources */,
 				79DF4CB11F99D333001CBB1D /* SettingsController.swift in Sources */,
 				79DF4C7D1F99B677001CBB1D /* HistoryController.swift in Sources */,

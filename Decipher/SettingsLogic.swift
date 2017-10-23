@@ -47,7 +47,11 @@ class SettingsLogic {
     }
     
     @objc func share() {
-        
+        let message = "yo, checkout this QR scanner. It's lit! 🔥"
+        let link = "maxthedev.com"
+        let activityViewController: UIActivityViewController = UIActivityViewController(activityItems: [message,link], applicationActivities: nil)
+        activityViewController.popoverPresentationController?.sourceView = (UIApplication.shared.delegate as! AppDelegate).settings.view
+        (UIApplication.shared.delegate as! AppDelegate).settings.present(activityViewController, animated: true, completion: nil)
     }
     
     @objc func instagram() {
@@ -71,10 +75,19 @@ class SettingsLogic {
     }
     
     @objc func clearScans() {
+        //clear them scannaroonies.
         Model.instance.scanHistory = []
         deli.history.reloadHistory()
+        //tell the user too tho.
+        let alertController = UIAlertController(title: "Yo!", message: "History Scans Cleared", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alertController.addAction(okAction)
+        (UIApplication.shared.delegate as! AppDelegate).history.present(alertController, animated: true, completion: nil)
     }
     
+    @objc func logout() {
+        (UIApplication.shared.delegate as! AppDelegate).Logout()
+    }
 
     
 }

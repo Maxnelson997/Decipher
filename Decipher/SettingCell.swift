@@ -35,7 +35,6 @@ class SettingCell:UITableViewCell {
     let switContainer:UIView = {
         let v = UIView()
         v.translatesAutoresizingMaskIntoConstraints = false
-        v.isUserInteractionEnabled = false
         return v
     }()
     let swit:UISwitch = {
@@ -50,7 +49,6 @@ class SettingCell:UITableViewCell {
         s.translatesAutoresizingMaskIntoConstraints = false
         s.backgroundColor = .clear
         s.distribution = .fill
-        s.isUserInteractionEnabled = false
         s.axis = .horizontal
         return s
     }()
