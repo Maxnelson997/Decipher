@@ -52,7 +52,15 @@ extension UIView {
         ]
     }
 }
-
+extension String {
+    func capitalizingFirstLetter() -> String {
+        return prefix(1).uppercased() + dropFirst()
+    }
+    
+    mutating func capitalizeFirstLetter() {
+        self = self.capitalizingFirstLetter()
+    }
+}
 extension UIColor {
     
     open class var DBackground: UIColor { return UIColor.init(rgb: 0xB5DFFF) }

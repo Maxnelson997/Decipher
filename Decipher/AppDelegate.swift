@@ -12,6 +12,7 @@ import Font_Awesome_Swift
 import AVFoundation
 import Firebase
 import FirebaseDatabase
+import NVActivityIndicatorView
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -29,7 +30,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var scanNav:UINavigationController!
 
     var tabBarController:UITabBarController!
-    
+    var loadAnimation:NVActivityIndicatorView = NVActivityIndicatorView(frame: .zero, type: .ballPulseSync, color: .white, padding: 0)
     
     //Firebase
     var db:DatabaseReference!
@@ -86,6 +87,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             return
         }
         print("attempting to SIGN IN user with credentials: username: \(String(describing: email!)), password: \(String(describing: password!))")
+        delay(0.1) {
+                 self.loadAnimation.startAnimating()
+        }
+   
+        self.login.uistate(active: false)
         Auth.auth().signIn(withEmail: email!, password: password!) { (user, error) in
             print("firebase create user ,user, response: \(String(describing: user))")
             print("firebase create user ,error, response: \(String(describing: error))")
@@ -104,7 +110,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 self.login.present(alertController, animated: true, completion: nil)
             } else {
                 print("login success")
-                self.settings.navigationItem.titleView = self.makeTitle(titleText: "Settings - \(email!)")
+                self.settings.navigationItem.titleView = self.makeTitle(titleText: "Settings - \((email!).capitalizingFirstLetter())")
                 //save
                 Model.instance.isloggedin = true
     
@@ -114,7 +120,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 
                 self.navigationController.pushViewController(self.tabBarController, animated: true)
             }
-
+            self.loadAnimation.stopAnimating()
+            self.login.uistate(active: true)
             
             
         }
@@ -381,6 +388,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.makeKeyAndVisible()
         window?.backgroundColor = UIColor.DBackground
         window?.rootViewController = navigationController
+        window?.addSubview(loadAnimation)
+        loadAnimation.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            loadAnimation.centerXAnchor.constraint(equalTo: (window?.centerXAnchor)!),
+            loadAnimation.centerYAnchor.constraint(equalTo: (window?.centerYAnchor)!, constant: 25),
+            loadAnimation.widthAnchor.constraint(equalToConstant: 50),
+            loadAnimation.heightAnchor.constraint(equalToConstant: 50),
+            ])
+
         
         
         return true

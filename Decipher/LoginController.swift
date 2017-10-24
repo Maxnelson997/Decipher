@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
 import CoreData
-import NVActivityIndicatorView
+
 
 class LoginController:DecipherController, UITextFieldDelegate {
     
@@ -19,7 +19,15 @@ class LoginController:DecipherController, UITextFieldDelegate {
     var current:UITextField = UITextField()
     var context:NSManagedObjectContext!
     
-   
+    func uistate(active:Bool) {
+        usernameBox.isUserInteractionEnabled = active
+        passwordBox.isUserInteractionEnabled = active
+        skipButton.isUserInteractionEnabled = active
+        loginButton.isUserInteractionEnabled = active
+        forgotButton.isUserInteractionEnabled = active
+        signupButton.isUserInteractionEnabled = active
+    }
+
     
     override func viewDidAppear(_ animated: Bool) {
         UIView.animate(withDuration: 0.3, animations: {
@@ -161,9 +169,11 @@ class LoginController:DecipherController, UITextFieldDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
         usernameBox.delegate = self
         passwordBox.delegate = self
+        passwordBox.isSecure = true
         usernameBox.headerColor = .clear
         passwordBox.headerColor = .clear
 //        usernameBox.text = "maxnelson997@gmail.com"
@@ -281,14 +291,13 @@ class LoginController:DecipherController, UITextFieldDelegate {
         
         usernameBox.becomeFirstResponder()
         
-        
-        
         //        self.logo.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
         self.loginButton.addTarget(self, action: #selector(self.login), for: .touchUpInside)
         forgotButton.addTarget(self, action: #selector(self.forgot), for: .touchUpInside)
         signupButton.addTarget(self, action: #selector(self.signup), for: .touchUpInside)
         skipButton.addTarget(self, action: #selector(self.skip), for: .touchUpInside)
         
+
         retrieveCredentialsFromCoreData()
     }
     
@@ -324,7 +333,34 @@ class LoginController:DecipherController, UITextFieldDelegate {
         if isSignupEnabled {
             //
         } else {
+            //send email for reset
             //forgot
+            var description:String = ""
+            var title:String = ""
+            Auth.auth().sendPasswordReset(withEmail: usernameBox.text) { error in
+                if let error = error
+                {
+                    title = "Error"
+                    if error.localizedDescription == "There is no user record corresponding to this identifier. The user may have been deleted." {
+                        description = "There is no user associated with this email address, check the email above."
+                    } else {
+                        description = "There was an error resetting your password, try again or come back later."
+                    }
+                    print(error.localizedDescription)
+                    // Error - Unidentified Email
+                }
+                else
+                {
+                    title = "Success"
+                    description = "We've sent a link to reset your password to the email above."
+
+                    // Success - Sent recovery email
+                }
+                let alertController = UIAlertController(title: title, message: description, preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                alertController.addAction(okAction)
+                self.present(alertController, animated: true, completion: nil)
+            }
         }
     }
     

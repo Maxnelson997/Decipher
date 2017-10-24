@@ -12,6 +12,18 @@ import AVFoundation
 class DetailsViewController: UIViewController {
     
     var scannedCode:String?
+    var ref:HistoryModel!
+    
+    @objc func gogo() {
+        if ref.isURL {
+            (UIApplication.shared.delegate as! AppDelegate).goToURL(url: ref.url)
+        } else {
+            let alertController = UIAlertController(title: "Bruh..", message: "This is not a valid web URL.", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+            alertController.addAction(okAction)
+            present(alertController, animated: true, completion: nil)
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,6 +31,8 @@ class DetailsViewController: UIViewController {
         // Do any additional setup after loading the view.
         view.backgroundColor = UIColor.MNOriginalDarkGray
         print(scannedCode!)
+        
+        go.addTarget(self, action: #selector(self.gogo), for: .touchUpInside)
         
         
         // Setup label and button layout
@@ -60,6 +74,7 @@ class DetailsViewController: UIViewController {
         codeLabel.textColor = UIColor.MNRed
         codeLabel.backgroundColor = UIColor.MNGray
         codeLabel.layer.cornerRadius = 8
+        codeLabel.adjustsFontSizeToFitWidth = true
         codeLabel.font = UIFont.init(customFont: .ProximaNovaLight, withSize: 40)
         codeLabel.layer.masksToBounds = true
         codeLabel.adjustsFontSizeToFitWidth = true
@@ -71,6 +86,7 @@ class DetailsViewController: UIViewController {
         let scanButton = UIButton(type: .system)
         scanButton.setTitle("Done", for: .normal)
         scanButton.setTitleColor(UIColor.MNBlue, for: .normal)
+        scanButton.titleLabel?.adjustsFontSizeToFitWidth = true
         scanButton.titleLabel?.font = UIFont.init(customFont: .ProximaNovaLight, withSize: 40)
         scanButton.backgroundColor = UIColor.MNGray//.orange
         scanButton.layer.cornerRadius = 8
@@ -83,6 +99,7 @@ class DetailsViewController: UIViewController {
         let scanButton = UIButton(type: .system)
         scanButton.setTitle("Open", for: .normal)
         scanButton.setTitleColor(UIColor.MNBlue, for: .normal)
+        scanButton.titleLabel?.adjustsFontSizeToFitWidth = true
         scanButton.titleLabel?.font = UIFont.init(customFont: .ProximaNovaLight, withSize: 40)
         scanButton.backgroundColor = UIColor.MNGray//.orange
         scanButton.layer.cornerRadius = 8
@@ -214,6 +231,7 @@ class ScanController: DecipherController, AVCaptureMetadataOutputObjectsDelegate
         detailsViewController.scannedCode = scannedCode
         
         let historyItem = HistoryModel(title: scannedCode)
+        detailsViewController.ref = historyItem
         if Model.instance.userSettings.saveScansInHistory {
             Model.instance.scanHistory.append(historyItem)
         } else {

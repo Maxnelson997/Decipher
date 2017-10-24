@@ -13,6 +13,14 @@ class PTextFieldWithHeader:PStack {
     required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    var isSecure:Bool {
+        get {
+            return field.isSecureTextEntry
+        } set {
+            field.isSecureTextEntry = newValue
+        }
+    }
 
     init(customFont:CustomFont, textSize:CGFloat = 20, headerSize:CGFloat = 15,  placeholder:String, withHeaderName:String? = nil, inset:UIEdgeInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5), alignment:NSTextAlignment = .left, type:UIKeyboardType = .alphabet) {
         super.init(axis: .vertical)
