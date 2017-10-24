@@ -8,7 +8,8 @@
 
 import UIKit
 import Firebase
-
+import CoreData
+import NVActivityIndicatorView
 
 class LoginController:DecipherController, UITextFieldDelegate {
     
@@ -16,6 +17,7 @@ class LoginController:DecipherController, UITextFieldDelegate {
     let model = Model.instance
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     var current:UITextField = UITextField()
+    var context:NSManagedObjectContext!
     
    
     
@@ -159,7 +161,7 @@ class LoginController:DecipherController, UITextFieldDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
         usernameBox.delegate = self
         passwordBox.delegate = self
         usernameBox.headerColor = .clear
@@ -286,6 +288,8 @@ class LoginController:DecipherController, UITextFieldDelegate {
         forgotButton.addTarget(self, action: #selector(self.forgot), for: .touchUpInside)
         signupButton.addTarget(self, action: #selector(self.signup), for: .touchUpInside)
         skipButton.addTarget(self, action: #selector(self.skip), for: .touchUpInside)
+        
+        retrieveCredentialsFromCoreData()
     }
     
     @objc func login() {
@@ -347,5 +351,96 @@ class LoginController:DecipherController, UITextFieldDelegate {
         }
     }
 
+    
+    //core data
+    func saveCredentialsInCoreData() {
+        var coreDataUser:NSManagedObject!
+        
+        //then save the new one. removing the previous one each time prevents the model from storing the user multiple times. this is if we are deleting the core data objects. rn ignore this comment
+        
+        //check if user exists
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Login")
+        
+        request.returnsObjectsAsFaults = false
+        if let results = try? context.fetch(request) {
+            if results.count != 0 {
+                //a user exists
+                coreDataUser = results.first as! NSManagedObject
+            } else {
+                //create a user
+                coreDataUser = NSEntityDescription.insertNewObject(forEntityName: "Login", into: context)
+            }
+        } else {
+            //failed
+            print("hmm failed?")
+        }
+        //save new user
+        
+        coreDataUser.setValue(usernameBox.text, forKey: "username")
+        coreDataUser.setValue(passwordBox.text, forKey: "password")
+        coreDataUser.setValue(Model.instance.isloggedin, forKey: "isloggedin")
+    
+        
+        //store new user
+        if usernameBox.text != "" && passwordBox.text != "" {
+            do
+            {
+                try context.save()
+                print("username saved in Core Data model: \(String(describing: coreDataUser.value(forKey: "username")!))")
+                print("password saved in Core Data model: \(String(describing: coreDataUser.value(forKey: "password")!))")
+                print("isloggedin saved in Core Data model: \(String(describing: coreDataUser.value(forKey: "isloggedin")!))")
+            }
+            catch
+            {
+                print("hmm error saving credentials")
+            }
+        } else {
+            //empty
+        }
+        
+    }
+    
+    func retrieveCredentialsFromCoreData() {
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Login")
+        
+        request.returnsObjectsAsFaults = false
+        
+        do
+        {
+            let results = try context.fetch(request)
+            
+            if results.count != 0 {
+                //username and password are indeed in there. for loop even tho there will always only be 1 value
+                for result in results as! [NSManagedObject]{
+               
+                    if let username = result.value(forKey: "username") as? String {
+                        usernameBox.text = username
+                        print("username retrieved: \(username)")
+                    }
+                    if let password = result.value(forKey: "password") as? String {
+                        passwordBox.text = password
+                        print("password retrieved: \(password)")
+                    }
+                    if let isloggedin = result.value(forKey: "isloggedin") as? Bool {
+                        print("isloggedin retrieved: \(isloggedin)")
+                        
+                        if isloggedin && !usernameBox.text.isEmpty && !passwordBox.text.isEmpty {
+                            print("logging in with credentials from core data")
+                            (UIApplication.shared.delegate as! AppDelegate).Login(email: usernameBox.text, password: passwordBox.text)
+                        }
+                    }
+   
+                    
+                }
+                    
+            } else {
+            print("username password not saved in Core Data")
+            }
+        }
+        catch
+        {
+            print("hmm error retreiving credentials")
+        }
+    }
     
 }

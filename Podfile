@@ -6,11 +6,12 @@ target 'Decipher' do
   use_frameworks!
 
   # Pods for Decipher
-    pod 'Font-Awesome-Swift', '~> 1.7.1'
-    pod 'Firebase/Core'
+  pod 'Font-Awesome-Swift', '~> 1.7.1'
+  pod 'Firebase/Core'
+  pod 'Firebase/Auth'
+  pod 'Firebase/Database'
+  pod 'NVActivityIndicatorView'
 
-    pod 'Firebase/Auth'
-pod 'Firebase/Database'
   target 'DecipherTests' do
     inherit! :search_paths
     # Pods for testing

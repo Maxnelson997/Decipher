@@ -106,6 +106,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 print("login success")
                 self.settings.navigationItem.titleView = self.makeTitle(titleText: "Settings - \(email!)")
                 //save
+                Model.instance.isloggedin = true
     
              
                 //retrieve nsarray of scans
@@ -139,6 +140,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
             navigationController.popToViewController(login, animated: true)
             print("logout success")
+            Model.instance.isloggedin = false
         } catch let signOutError as NSError {
             print ("Error signing out: %@", signOutError)
             let alertController = UIAlertController(title: "Heads Up", message: "couldn't logout, try again.", preferredStyle: .alert)
@@ -392,10 +394,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+        login.saveCredentialsInCoreData()
+        self.saveContext()
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
+        
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
@@ -405,6 +410,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         // Saves changes in the application's managed object context before the application terminates.
+        login.saveCredentialsInCoreData()
         self.saveContext()
     }
 

@@ -86,6 +86,7 @@ class Model {
     var browsers:[String]!
     var userSettings:UserSettings!
     var woc:Bool = false
+    var isloggedin:Bool = false
 
 }
 
