@@ -54,7 +54,7 @@ class DetailsViewController: UIViewController {
     
     lazy var scanButton:UIButton = {
         let scanButton = UIButton(type: .system)
-        scanButton.setTitle("Done", for: .normal)
+        scanButton.setTitle("Ok", for: .normal)
         scanButton.setTitleColor(UIColor.green, for: .normal)
         scanButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 25)
         scanButton.backgroundColor = UIColor.MNTextGray//.orange
@@ -80,9 +80,23 @@ class ScanController: DecipherController, AVCaptureMetadataOutputObjectsDelegate
     var videoPreviewLayer:AVCaptureVideoPreviewLayer?
     var captureSession:AVCaptureSession?
     
+    override func viewDidDisappear(_ animated: Bool) {
+        captureSession?.stopRunning()
+        videoPreviewLayer!.removeFromSuperlayer()
+    }
+    override func viewDidAppear(_ animated: Bool) {
+//        generateCapture()
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        generateCapture()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+//        generateCapture()
+    }
+    
+    func generateCapture() {
         captureDevice = AVCaptureDevice.default(for: .video)
         // Check if captureDevice returns a value and unwrap it
         if let captureDevice = captureDevice {
@@ -105,7 +119,7 @@ class ScanController: DecipherController, AVCaptureMetadataOutputObjectsDelegate
                 videoPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
                 videoPreviewLayer?.videoGravity = .resizeAspectFill
                 videoPreviewLayer?.frame = view.layer.bounds
-  
+                
                 view.layer.addSublayer(videoPreviewLayer!)
                 
             } catch {
@@ -113,8 +127,6 @@ class ScanController: DecipherController, AVCaptureMetadataOutputObjectsDelegate
             }
             
         }
-
-        
     }
     
     override func didReceiveMemoryWarning() {
@@ -171,8 +183,11 @@ class ScanController: DecipherController, AVCaptureMetadataOutputObjectsDelegate
     
     func displayDetailsViewController(scannedCode: String) {
         let deli = (UIApplication.shared.delegate as! AppDelegate)
-        let detailsViewController = DetailsViewController()
-        detailsViewController.scannedCode = scannedCode
+//        let detailsViewController = DetailsViewController()
+//        detailsViewController.scannedCode = scannedCode
+
+        
+        
         let historyItem = HistoryModel(title: scannedCode)
         if Model.instance.userSettings.saveScansInHistory {
             Model.instance.scanHistory.append(historyItem)
@@ -182,9 +197,143 @@ class ScanController: DecipherController, AVCaptureMetadataOutputObjectsDelegate
         deli.syncScans()
         deli.history.reloadHistory()
         //navigationController?.pushViewController(detailsViewController, animated: true)
-        present(detailsViewController, animated: true, completion: nil)
+//        present(detailsViewController, animated: true, completion: nil)
+    
+        let popView = pop(code:scannedCode)
+        self.view.addSubview(popView)
+        let popHeight = popView.heightAnchor.constraint(equalToConstant: 0)
+        let popWidth = popView.heightAnchor.constraint(equalToConstant: 0)
+
+        NSLayoutConstraint.activate([
+            popView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            popView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            popHeight,
+            popWidth
+            ])
+        
+        UIView.animate(withDuration: 0.3) {
+            popHeight.constant = 250
+            popWidth.constant = 100
+            self.view.layoutIfNeeded()
+        }
+        
+      
+        
     }
 
+
+}
+
+class pop:UIStackView {
+    var scannedCode:String?
+
+    
+    override init(frame: CGRect) {
+        super.init(frame: .zero)
+        phaseTwo()
+    }
+    
+    init(code:String) {
+        super.init(frame:.zero)
+        self.scannedCode = code
+        phaseTwo()
+    }
+    
+    required init(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    var container:UIView = {
+       let v = UIView()
+        v.translatesAutoresizingMaskIntoConstraints = false
+        v.backgroundColor = .clear
+        return v
+    }()
+    
+    @objc func remove() {
+        UIView.animate(withDuration: 0.3, animations: {
+            self.transform = CGAffineTransform(scaleX: 0, y: 0)
+            
+        }) { (true) in
+            self.removeFromSuperview()
+        }
+    }
+    
+    var label:DButton = {
+        let b = DButton()
+        b.translatesAutoresizingMaskIntoConstraints = false
+        b.setTitle("ok", for: .normal)
+        b.titleLabel?.textAlignment = .left
+        b.setTitleColor(UIColor.MNBlue, for: .normal)
+        b.titleLabel?.font = UIFont.init(customFont: .ProximaNovaSemibold, withSize: 20)
+        return b
+    }()
+
+    let ok:DButton = {
+        let b = DButton()
+        b.translatesAutoresizingMaskIntoConstraints = false
+        b.setTitle("ok", for: .normal)
+        b.titleLabel?.textAlignment = .left
+        b.setTitleColor(UIColor.MNBlue, for: .normal)
+        b.titleLabel?.font = UIFont.init(customFont: .ProximaNovaSemibold, withSize: 20)
+        return b
+    }()
+    
+    let go:DButton = {
+        let b = DButton()
+        b.translatesAutoresizingMaskIntoConstraints = false
+        b.setTitle("go to link", for: .normal)
+        b.titleLabel?.textAlignment = .left
+        b.setTitleColor(UIColor.MNBlue, for: .normal)
+        b.titleLabel?.font = UIFont.init(customFont: .ProximaNovaSemibold, withSize: 20)
+        return b
+    }()
+    
+    var stack:UIStackView = {
+       let s = UIStackView()
+        s.translatesAutoresizingMaskIntoConstraints = false
+        s.axis = .horizontal
+        s.distribution = .fill
+        return s
+    }()
+    
+    func phaseTwo() {
+        
+        if let scannedCode = scannedCode {
+            label.text = scannedCode
+        }
+        self.translatesAutoresizingMaskIntoConstraints = false
+        self.layer.cornerRadius = 8
+        self.backgroundColor = UIColor.MNGreen
+        self.axis = .vertical
+        
+        label.isUserInteractionEnabled = false
+        
+        container.addSubview(label)
+        self.addArrangedSubview(container)
+        self.addArrangedSubview(stack)
+        
+        stack.addArrangedSubview(go)
+        stack.addArrangedSubview(ok)
+        
+        NSLayoutConstraint.activate([
+            
+            label.centerXAnchor.constraint(equalTo: container.centerXAnchor),
+            label.centerYAnchor.constraint(equalTo: container.centerYAnchor),
+            label.heightAnchor.constraint(equalToConstant: 100),
+            label.leftAnchor.constraint(equalTo: container.leftAnchor),
+            label.rightAnchor.constraint(equalTo: container.rightAnchor),
+            
+            container.heightAnchor.constraint(lessThanOrEqualTo: self.heightAnchor),
+            stack.heightAnchor.constraint(equalToConstant: 50)
+            ])
+        
+//        let deli = UIApplication.shared.delegate as! AppDelegate
+//        go.addTarget(deli, action: #selector(), for: <#T##UIControlEvents#>)
+        ok.addTarget(self, action: #selector(self.remove), for: .touchUpInside)
+        
+        
+    }
 
 }
 
