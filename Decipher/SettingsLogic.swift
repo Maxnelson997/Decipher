@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class SettingsLogic {
     
@@ -30,7 +31,8 @@ class SettingsLogic {
     }
     
     @objc func soundEffects(sender:UISwitch) {
-        
+        let uid = Auth.auth().currentUser?.uid
+        deli.db.child("users").child(uid!).setValue(["soundEffects":Model.instance.userSettings.soundEffects])
     }
     
     @objc func vibrateOnScan(sender:UISwitch) {

@@ -82,7 +82,6 @@ class ScanController: DecipherController, AVCaptureMetadataOutputObjectsDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
 
         captureDevice = AVCaptureDevice.default(for: .video)
         // Check if captureDevice returns a value and unwrap it
@@ -175,6 +174,7 @@ class ScanController: DecipherController, AVCaptureMetadataOutputObjectsDelegate
         detailsViewController.scannedCode = scannedCode
         let historyItem = HistoryModel(title: scannedCode)
         Model.instance.scanHistory.append(historyItem)
+        (UIApplication.shared.delegate as! AppDelegate).syncScans()
         (UIApplication.shared.delegate as! AppDelegate).history.reloadHistory()
         //navigationController?.pushViewController(detailsViewController, animated: true)
         present(detailsViewController, animated: true, completion: nil)

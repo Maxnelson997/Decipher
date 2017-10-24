@@ -11,6 +11,7 @@ import CoreData
 import Font_Awesome_Swift
 import AVFoundation
 import Firebase
+import FirebaseDatabase
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -25,19 +26,144 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var tabBarController:UITabBarController!
     
-    @objc func Login() {
-        navigationController.pushViewController(tabBarController, animated: true)
+    //Firebase
+    var db:DatabaseReference!
+    
+    @objc func createUser(email:String,password:String) {
+        print("attempting to create user with credentials: username: \(email), password: \(password)")
+        Auth.auth().createUser(withEmail: email, password: password) { (user, error) in
+            print("firebase create user ,user, response: \(String(describing: user))")
+            print("firebase create user ,error, response: \(String(describing: error))")
+            
+            print("\n\n")
+            
+            if error == nil {
+                //creation successful
+                let uid = Auth.auth().currentUser?.uid
+
+                //DB JUNK
+                //save the user into the database
+                self.db.child("users").child(uid!).setValue(["username":email])
+            
+                
+                
+                if let user = user {
+                    if let emailForNewUser = user.email {
+                        print("account succesfuly created \(emailForNewUser)")
+                        let alertController = UIAlertController(title: "Heads Up", message: "account succesfuly created", preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                        alertController.addAction(okAction)
+                        self.login.present(alertController, animated: true, completion: nil)
+                    }
+                }
+            } else {
+                if let error = error {
+                    var description = error.localizedDescription
+                    print("error logging in. description: \(description)")
+                    if description == "The email address is badly formatted." {
+                        description = "Please enter a valid email address to sign up."
+                    }
+                    print("error creating user with description: \(description)")
+                    let alertController = UIAlertController(title: "Heads Up", message: description, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    alertController.addAction(okAction)
+                    self.login.present(alertController, animated: true, completion: nil)
+                }
+            }
+        }
+    }
+
+    @objc func Login(email:String? = "",password:String? = "",withoutCredentials:Bool = false) {
+        if withoutCredentials {
+            navigationController.pushViewController(tabBarController, animated: true)
+            return
+        }
+        print("attempting to SIGN IN user with credentials: username: \(String(describing: email!)), password: \(String(describing: password!))")
+        Auth.auth().signIn(withEmail: email!, password: password!) { (user, error) in
+            print("firebase create user ,user, response: \(String(describing: user))")
+            print("firebase create user ,error, response: \(String(describing: error))")
+
+            print("\n\n")
+
+            if let error = error {
+                var description = error.localizedDescription
+                print("error logging in. description: \(description)")
+                if description == "The password is invalid or the user does not have a password." {
+                    description = "Invalid username or password."
+                }
+                let alertController = UIAlertController(title: "Heads Up", message: description, preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                alertController.addAction(okAction)
+                self.login.present(alertController, animated: true, completion: nil)
+            } else {
+                print("login success")
+                
+                //save
+    
+             
+                //retrieve nsarray of scans
+                self.retrieveScans()
+                
+                self.navigationController.pushViewController(self.tabBarController, animated: true)
+            }
+
+            
+            
+        }
+       
     }
     
     @objc func Logout() {
-        navigationController.popToViewController(login, animated: true)
+        let firebaseAuth = Auth.auth()
+        print("user with uid: ")
+        print(String(describing: firebaseAuth.currentUser?.uid))
+        do {
+            try firebaseAuth.signOut()
+    
+            navigationController.popToViewController(login, animated: true)
+            print("logout success")
+        } catch let signOutError as NSError {
+            print ("Error signing out: %@", signOutError)
+            let alertController = UIAlertController(title: "Heads Up", message: "couldn't logout, try again.", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+            alertController.addAction(okAction)
+            settings.present(alertController, animated: true, completion: nil)
+            
+        }
+        
+        
+    }
+    
+
+    
+    @objc func syncScans() {
+        let uid = Auth.auth().currentUser?.uid
+        self.db.child("users").child(uid!).setValue(["scanHistory":Model.instance.userSettings.getScanHistoryArray()])
+    }
+    
+    @objc func retrieveScans() {
+        let uid = Auth.auth().currentUser?.uid
+        db.child("users").child(uid!).observeSingleEvent(of: .value, with: { (snapshot) in
+            //get user value
+            let value = snapshot.value as? NSDictionary
+            if let scans = value?["scanHistory"] as? [NSDictionary] {
+                for scan in scans {
+                    Model.instance.scanHistory.append(HistoryModel(fromDict: scan))
+                }
+                self.history.reloadHistory()
+            } else {
+                print("no scans?")
+            }
+            
+            
+        }) { (error) in
+            print(error.localizedDescription)
+        }
     }
     
     @objc func goToClear() {
         Model.instance.settingsLogic.clearScans()
     }
-    
-
     
     func barButton(withIcon: FAType, withSelector: Selector, color:UIColor = .white) -> UIBarButtonItem {
         let b = UIButton(type: .custom)
@@ -162,6 +288,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         
         FirebaseApp.configure()
+        db = Database.database().reference()
+        
         
         login = LoginController()
         scan = ScanController()

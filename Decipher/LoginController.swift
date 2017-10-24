@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 
 class LoginController:DecipherController, UITextFieldDelegate {
@@ -249,6 +250,9 @@ class LoginController:DecipherController, UITextFieldDelegate {
         viewStack.addArrangedSubview(credentialsContainerContainer)
         viewStack.addArrangedSubview(logoc)
         
+        usernameBox.becomeFirstResponder()
+        
+        
         
         //        self.logo.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
         self.loginButton.addTarget(self, action: #selector(self.login), for: .touchUpInside)
@@ -258,13 +262,17 @@ class LoginController:DecipherController, UITextFieldDelegate {
     }
     
     @objc func login() {
+        let email = usernameBox.text
+        let password = passwordBox.text
         if isSignupEnabled {
+
             //sign up user for decipher in firebase console
 
+            appDelegate.createUser(email:email,password:password)
     
         } else {
             
-            appDelegate.Login()
+            appDelegate.Login(email:email,password:password)
         }
   
     }
@@ -276,9 +284,9 @@ class LoginController:DecipherController, UITextFieldDelegate {
         signupButton.alpha = 0
         forgotButton.alpha = 0
         isSignupEnabled = true
-        usernameBox.text = ""
-        passwordBox.text = ""
-        usernameBox.becomeFirstResponder()
+//        usernameBox.text = ""
+//        passwordBox.text = ""
+//        usernameBox.becomeFirstResponder()
     }
     
     @objc func forgot() {
@@ -306,7 +314,7 @@ class LoginController:DecipherController, UITextFieldDelegate {
                 passwordBox.resignFirstResponder()
             }
         } else {
-            appDelegate.Login()
+           appDelegate.Login(email:"guest@guest.com",password:"guestacct")
             //skip
         }
     }
