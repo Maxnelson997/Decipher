@@ -25,7 +25,10 @@ class PTextFieldWithHeader:PStack {
         
         header.adjustsFontSizeToFitWidth = true
         header.backgroundColor = UIColor.MNGray
-        field = PTextField(customFont: customFont, size: textSize, placeholder: placeholder.uppercased(), type: type)
+        field = PTextField(customFont: customFont, size: textSize, placeholder: placeholder, type: type)
+        field.layer.cornerRadius = 5
+        field.layer.masksToBounds = true
+//        field.adjustsFontSizeToFitWidth = false
         addArrangedSubview(header)
         addArrangedSubview(field)
         distribution = .fill

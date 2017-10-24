@@ -24,18 +24,29 @@ class DetailsViewController: UIViewController {
         // Setup label and button layout
         view.addSubview(codeLabel)
         codeLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -100).isActive = true
-        codeLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16).isActive = true
-        codeLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16).isActive = true
+        codeLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50).isActive = true
+        codeLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50).isActive = true
         codeLabel.heightAnchor.constraint(equalToConstant: 50).isActive = true
         if let scannedCode = scannedCode {
             codeLabel.text = scannedCode
         }
         
         view.addSubview(scanButton)
-        scanButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.5).isActive = true
-        scanButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        scanButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        scanButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50).isActive = true
+        view.addSubview(go)
+        
+        NSLayoutConstraint.activate([
+            
+            go.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 50),
+            go.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50),
+            go.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.25),
+            go.rightAnchor.constraint(lessThanOrEqualTo: scanButton.leftAnchor),
+            
+            scanButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -50),
+            scanButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50),
+            scanButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.25),
+            scanButton.leftAnchor.constraint(greaterThanOrEqualTo: go.rightAnchor),
+            
+            ])
     }
     
     override func didReceiveMemoryWarning() {
@@ -46,19 +57,35 @@ class DetailsViewController: UIViewController {
     let codeLabel:UILabel = {
         let codeLabel = UILabel()
         codeLabel.textAlignment = .center
-        codeLabel.backgroundColor = .white
-        codeLabel.layer.cornerRadius = 25
+        codeLabel.textColor = UIColor.MNRed
+        codeLabel.backgroundColor = UIColor.MNGray
+        codeLabel.layer.cornerRadius = 8
+        codeLabel.font = UIFont.init(customFont: .ProximaNovaLight, withSize: 40)
+        codeLabel.layer.masksToBounds = true
+        codeLabel.adjustsFontSizeToFitWidth = true
         codeLabel.translatesAutoresizingMaskIntoConstraints = false
         return codeLabel
     }()
     
     lazy var scanButton:UIButton = {
         let scanButton = UIButton(type: .system)
-        scanButton.setTitle("Ok", for: .normal)
-        scanButton.setTitleColor(UIColor.green, for: .normal)
-        scanButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 25)
-        scanButton.backgroundColor = UIColor.MNTextGray//.orange
-        scanButton.layer.cornerRadius = 25
+        scanButton.setTitle("Done", for: .normal)
+        scanButton.setTitleColor(UIColor.MNBlue, for: .normal)
+        scanButton.titleLabel?.font = UIFont.init(customFont: .ProximaNovaLight, withSize: 40)
+        scanButton.backgroundColor = UIColor.MNGray//.orange
+        scanButton.layer.cornerRadius = 8
+        scanButton.addTarget(self, action: #selector(self.goBackToScan), for: .touchUpInside)
+        scanButton.translatesAutoresizingMaskIntoConstraints = false
+        return scanButton
+    }()
+    
+    lazy var go:UIButton = {
+        let scanButton = UIButton(type: .system)
+        scanButton.setTitle("Open", for: .normal)
+        scanButton.setTitleColor(UIColor.MNBlue, for: .normal)
+        scanButton.titleLabel?.font = UIFont.init(customFont: .ProximaNovaLight, withSize: 40)
+        scanButton.backgroundColor = UIColor.MNGray//.orange
+        scanButton.layer.cornerRadius = 8
         scanButton.addTarget(self, action: #selector(self.goBackToScan), for: .touchUpInside)
         scanButton.translatesAutoresizingMaskIntoConstraints = false
         return scanButton
@@ -183,10 +210,8 @@ class ScanController: DecipherController, AVCaptureMetadataOutputObjectsDelegate
     
     func displayDetailsViewController(scannedCode: String) {
         let deli = (UIApplication.shared.delegate as! AppDelegate)
-//        let detailsViewController = DetailsViewController()
-//        detailsViewController.scannedCode = scannedCode
-
-        
+        let detailsViewController = DetailsViewController()
+        detailsViewController.scannedCode = scannedCode
         
         let historyItem = HistoryModel(title: scannedCode)
         if Model.instance.userSettings.saveScansInHistory {
@@ -194,29 +219,32 @@ class ScanController: DecipherController, AVCaptureMetadataOutputObjectsDelegate
         } else {
             Model.instance.scanHistory = []
         }
+        
         deli.syncScans()
         deli.history.reloadHistory()
+        
         //navigationController?.pushViewController(detailsViewController, animated: true)
-//        present(detailsViewController, animated: true, completion: nil)
+        present(detailsViewController, animated: true, completion: nil)
     
-        let popView = pop(code:scannedCode)
-        self.view.addSubview(popView)
-        let popHeight = popView.heightAnchor.constraint(equalToConstant: 0)
-        let popWidth = popView.heightAnchor.constraint(equalToConstant: 0)
+//        let popView = pop(code:scannedCode)
+//        self.view.addSubview(popView)
+//        let popHeight = popView.heightAnchor.constraint(equalToConstant: view.frame.width * 0.75)
+//        let popWidth = popView.widthAnchor.constraint(equalToConstant: view.frame.width * 0.75)
+//
+//        NSLayoutConstraint.activate([
+//            popView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+//            popView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+//            popHeight,
+//            popWidth
+//
+//            ])
 
-        NSLayoutConstraint.activate([
-            popView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            popView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            popHeight,
-            popWidth
-            ])
-        
-        UIView.animate(withDuration: 0.3) {
-            popHeight.constant = 250
-            popWidth.constant = 100
-            self.view.layoutIfNeeded()
-        }
-        
+//        UIView.animate(withDuration: 0.3) {
+//            popHeight.constant = 250
+//            popWidth.constant = 150
+//            self.view.layoutIfNeeded()
+//        }
+//        
       
         
     }
@@ -224,116 +252,116 @@ class ScanController: DecipherController, AVCaptureMetadataOutputObjectsDelegate
 
 }
 
-class pop:UIStackView {
-    var scannedCode:String?
+//class pop:UIStackView {
+//    var scannedCode:String?
+//
+//
+//    override init(frame: CGRect) {
+//        super.init(frame: .zero)
+//        phaseTwo()
+//    }
+//
+//    init(code:String) {
+//        super.init(frame:.zero)
+//        self.scannedCode = code
+//        phaseTwo()
+//    }
+//
+//    required init(coder: NSCoder) {
+//        fatalError("init(coder:) has not been implemented")
+//    }
+//
+//    var container:UIView = {
+//       let v = UIView()
+//        v.translatesAutoresizingMaskIntoConstraints = false
+//        v.backgroundColor = .clear
+//        return v
+//    }()
+//
+//    @objc func remove() {
+//        UIView.animate(withDuration: 0.3, animations: {
+//            self.transform = CGAffineTransform(scaleX: 0, y: 0)
+//
+//        }) { (true) in
+//            self.removeFromSuperview()
+//        }
+//    }
+//
+//    var label:DButton = {
+//        let b = DButton()
+//        b.translatesAutoresizingMaskIntoConstraints = false
+//        b.setTitle("ok", for: .normal)
+//        b.titleLabel?.textAlignment = .left
+//        b.setTitleColor(UIColor.MNBlue, for: .normal)
+//        b.titleLabel?.font = UIFont.init(customFont: .ProximaNovaSemibold, withSize: 20)
+//        return b
+//    }()
+//
+//    let ok:DButton = {
+//        let b = DButton()
+//        b.translatesAutoresizingMaskIntoConstraints = false
+//        b.setTitle("ok", for: .normal)
+//        b.titleLabel?.textAlignment = .left
+//        b.setTitleColor(UIColor.MNBlue, for: .normal)
+//        b.titleLabel?.font = UIFont.init(customFont: .ProximaNovaSemibold, withSize: 20)
+//        return b
+//    }()
+//
+//    let go:DButton = {
+//        let b = DButton()
+//        b.translatesAutoresizingMaskIntoConstraints = false
+//        b.setTitle("go to link", for: .normal)
+//        b.titleLabel?.textAlignment = .left
+//        b.setTitleColor(UIColor.MNBlue, for: .normal)
+//        b.titleLabel?.font = UIFont.init(customFont: .ProximaNovaSemibold, withSize: 20)
+//        return b
+//    }()
+//
+//    var stack:UIStackView = {
+//       let s = UIStackView()
+//        s.translatesAutoresizingMaskIntoConstraints = false
+//        s.axis = .horizontal
+//        s.distribution = .fill
+//        return s
+//    }()
+//
+//    func phaseTwo() {
+//
+//        if let scannedCode = scannedCode {
+//            label.text = scannedCode
+//        }
+//        self.translatesAutoresizingMaskIntoConstraints = false
+//        self.layer.cornerRadius = 8
+//        self.backgroundColor = UIColor.MNGreen
+//        self.axis = .vertical
+//
+//        label.isUserInteractionEnabled = false
+//
+//        container.addSubview(label)
+//        self.addArrangedSubview(container)
+//        self.addArrangedSubview(stack)
+//
+//        stack.addArrangedSubview(go)
+//        stack.addArrangedSubview(ok)
+//
+//        NSLayoutConstraint.activate([
+//
+//            label.centerXAnchor.constraint(equalTo: container.centerXAnchor),
+//            label.centerYAnchor.constraint(equalTo: container.centerYAnchor),
+//            label.heightAnchor.constraint(equalToConstant: 100),
+//            label.leftAnchor.constraint(equalTo: container.leftAnchor),
+//            label.rightAnchor.constraint(equalTo: container.rightAnchor),
+//
+//            container.heightAnchor.constraint(lessThanOrEqualTo: self.heightAnchor),
+//            stack.heightAnchor.constraint(equalToConstant: 50)
+//            ])
+//
+////        let deli = UIApplication.shared.delegate as! AppDelegate
+////        go.addTarget(deli, action: #selector(), for: <#T##UIControlEvents#>)
+//        ok.addTarget(self, action: #selector(self.remove), for: .touchUpInside)
+//
+//
+//    }
 
-    
-    override init(frame: CGRect) {
-        super.init(frame: .zero)
-        phaseTwo()
-    }
-    
-    init(code:String) {
-        super.init(frame:.zero)
-        self.scannedCode = code
-        phaseTwo()
-    }
-    
-    required init(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    var container:UIView = {
-       let v = UIView()
-        v.translatesAutoresizingMaskIntoConstraints = false
-        v.backgroundColor = .clear
-        return v
-    }()
-    
-    @objc func remove() {
-        UIView.animate(withDuration: 0.3, animations: {
-            self.transform = CGAffineTransform(scaleX: 0, y: 0)
-            
-        }) { (true) in
-            self.removeFromSuperview()
-        }
-    }
-    
-    var label:DButton = {
-        let b = DButton()
-        b.translatesAutoresizingMaskIntoConstraints = false
-        b.setTitle("ok", for: .normal)
-        b.titleLabel?.textAlignment = .left
-        b.setTitleColor(UIColor.MNBlue, for: .normal)
-        b.titleLabel?.font = UIFont.init(customFont: .ProximaNovaSemibold, withSize: 20)
-        return b
-    }()
-
-    let ok:DButton = {
-        let b = DButton()
-        b.translatesAutoresizingMaskIntoConstraints = false
-        b.setTitle("ok", for: .normal)
-        b.titleLabel?.textAlignment = .left
-        b.setTitleColor(UIColor.MNBlue, for: .normal)
-        b.titleLabel?.font = UIFont.init(customFont: .ProximaNovaSemibold, withSize: 20)
-        return b
-    }()
-    
-    let go:DButton = {
-        let b = DButton()
-        b.translatesAutoresizingMaskIntoConstraints = false
-        b.setTitle("go to link", for: .normal)
-        b.titleLabel?.textAlignment = .left
-        b.setTitleColor(UIColor.MNBlue, for: .normal)
-        b.titleLabel?.font = UIFont.init(customFont: .ProximaNovaSemibold, withSize: 20)
-        return b
-    }()
-    
-    var stack:UIStackView = {
-       let s = UIStackView()
-        s.translatesAutoresizingMaskIntoConstraints = false
-        s.axis = .horizontal
-        s.distribution = .fill
-        return s
-    }()
-    
-    func phaseTwo() {
-        
-        if let scannedCode = scannedCode {
-            label.text = scannedCode
-        }
-        self.translatesAutoresizingMaskIntoConstraints = false
-        self.layer.cornerRadius = 8
-        self.backgroundColor = UIColor.MNGreen
-        self.axis = .vertical
-        
-        label.isUserInteractionEnabled = false
-        
-        container.addSubview(label)
-        self.addArrangedSubview(container)
-        self.addArrangedSubview(stack)
-        
-        stack.addArrangedSubview(go)
-        stack.addArrangedSubview(ok)
-        
-        NSLayoutConstraint.activate([
-            
-            label.centerXAnchor.constraint(equalTo: container.centerXAnchor),
-            label.centerYAnchor.constraint(equalTo: container.centerYAnchor),
-            label.heightAnchor.constraint(equalToConstant: 100),
-            label.leftAnchor.constraint(equalTo: container.leftAnchor),
-            label.rightAnchor.constraint(equalTo: container.rightAnchor),
-            
-            container.heightAnchor.constraint(lessThanOrEqualTo: self.heightAnchor),
-            stack.heightAnchor.constraint(equalToConstant: 50)
-            ])
-        
-//        let deli = UIApplication.shared.delegate as! AppDelegate
-//        go.addTarget(deli, action: #selector(), for: <#T##UIControlEvents#>)
-        ok.addTarget(self, action: #selector(self.remove), for: .touchUpInside)
-        
-        
-    }
-
-}
+//}
 

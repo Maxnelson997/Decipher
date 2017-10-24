@@ -58,6 +58,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                         let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
                         alertController.addAction(okAction)
                         self.login.present(alertController, animated: true, completion: nil)
+                        self.Login(email: user.email, password: password)
+                        
                     }
                 }
             } else {
@@ -76,8 +78,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     }
-
+    
     @objc func Login(email:String? = "",password:String? = "",withoutCredentials:Bool = false) {
+        Model.instance.woc = withoutCredentials
         if withoutCredentials {
             navigationController.pushViewController(tabBarController, animated: true)
             return
@@ -101,7 +104,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 self.login.present(alertController, animated: true, completion: nil)
             } else {
                 print("login success")
-                
+                self.settings.navigationItem.titleView = self.makeTitle(titleText: "Settings - \(email!)")
                 //save
     
              
@@ -151,10 +154,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     
     @objc func syncScans() {
-        let uid = Auth.auth().currentUser?.uid
- 
-//        self.db.child("users").child(uid!).setValue([)
-        self.db.child("users").child(uid!).updateChildValues(["scanHistory":Model.instance.userSettings.getScanHistoryArray()])
+        if !Model.instance.woc {
+            let uid = Auth.auth().currentUser?.uid
+            
+            //        self.db.child("users").child(uid!).setValue([)
+            self.db.child("users").child(uid!).updateChildValues(["scanHistory":Model.instance.userSettings.getScanHistoryArray()])
+        }
+
     }
     
     @objc func retrieveScans() {
@@ -207,7 +213,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func createTitle(titleText:String) -> UIButton {
         let navTitle = UIButton(type: .custom)
         navTitle.setTitle(titleText, for: .normal)
-        navTitle.titleLabel?.font = UIFont.init(customFont: .ProximaNovaLight, withSize: 20)
+        navTitle.titleLabel?.font = UIFont.init(customFont: .ProximaNovaSemibold, withSize: 20)
         navTitle.backgroundColor = UIColor.clear
         navTitle.setTitleColor(UIColor.darkGray, for: .normal)
         return navTitle
@@ -218,7 +224,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let navTitle = UIButton(type: .custom)
         navTitle.setTitle(titleText, for: .normal)
         navTitle.titleLabel?.adjustsFontSizeToFitWidth = true
-        navTitle.titleLabel?.font = UIFont.init(customFont: .ProximaNovaLight, withSize: 20)
+        navTitle.titleLabel?.font = UIFont.init(customFont: .ProximaNovaSemibold, withSize: 20)
         navTitle.setTitleColor(UIColor.MNTextGray, for: .normal)
         return navTitle
     }
@@ -329,7 +335,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         settings.navigationItem.titleView = makeTitle(titleText: "Settings")
         settings.navigationItem.rightBarButtonItem = barButton(withIcon: .FASignOut, withSelector: #selector(self.Logout), color: UIColor.MNRed)
         history.navigationItem.rightBarButtonItem = barButton(withIcon: .FARemove, withSelector: #selector(self.goToClear), color: UIColor.MNRed)
-        scan.navigationItem.rightBarButtonItem = barButton(withIcon: .FALightbulbO, withSelector: #selector(self.turnOnLight))
+        scan.navigationItem.rightBarButtonItem = barButton(withIcon: .FALightbulbO, withSelector: #selector(self.turnOnLight), color: UIColor.yellow)
 //        scan.navigationItem.rightBarButtonItem = barButton(withIcon: .FALightbulbO, withSelector: #selector(self.turnOnLight), color: UIColor.MNRed)
         
         scanNav = UINavigationController(rootViewController: scan)

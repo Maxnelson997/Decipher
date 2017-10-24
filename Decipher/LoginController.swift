@@ -93,15 +93,27 @@ class LoginController:DecipherController, UITextFieldDelegate {
         return s
     }()
     
-    let logo: UIImageView = {
-        let img = UIImageView(image: #imageLiteral(resourceName: "textlogo"))
-        img.translatesAutoresizingMaskIntoConstraints = false
-        return img
+    let logo: PLabel = {
+//        let img = UIImageView(image: #imageLiteral(resourceName: "textlogo"))
+//        img.translatesAutoresizingMaskIntoConstraints = false
+//        return img
+        let l = PLabel(text: "Decipher", withSize: 70, alignment: .center)
+        var txt:NSMutableAttributedString = NSMutableAttributedString(string: "Decipher")
+        txt.setAttributes([NSAttributedStringKey.font:UIFont.init(customFont: .ProximaNovaSemibold, withSize: 70)!,NSAttributedStringKey.foregroundColor:UIColor.red], range: NSRange(location:2, length:6))
+        l.attributedText =  txt
+        return l
     }()
     
 
-    fileprivate let usernameBox = PTextFieldWithHeader(customFont: .ProximaNovaLight, textSize: 20, headerSize: 15, placeholder: "username")
-    fileprivate let passwordBox = PTextFieldWithHeader(customFont: .ProximaNovaLight, textSize: 20, headerSize: 15, placeholder: "password")
+    
+
+    fileprivate let usernameBox = PTextFieldWithHeader(customFont: .ProximaNovaSemibold, textSize: 20, headerSize: 15, placeholder: "username")
+    fileprivate let passwordBox:PTextFieldWithHeader = {
+        
+        let n = PTextFieldWithHeader(customFont: .ProximaNovaSemibold, textSize: 20, headerSize: 15, placeholder: "password")
+        
+        return n
+    }()
     
     
     let loginButton:DButton = {
@@ -152,9 +164,9 @@ class LoginController:DecipherController, UITextFieldDelegate {
         passwordBox.delegate = self
         usernameBox.headerColor = .clear
         passwordBox.headerColor = .clear
-        usernameBox.text = "maxnelson997@gmail.com"
-        passwordBox.text = "superdopepassword"
-       
+//        usernameBox.text = "maxnelson997@gmail.com"
+//        passwordBox.text = "superdopepassword"
+//
         viewStack.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.dismissText)))
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.dismissText)))
         view.addSubview(viewStack)
@@ -196,11 +208,13 @@ class LoginController:DecipherController, UITextFieldDelegate {
             distance = 50
             boxDistance = 50
         }
-        
+     
         NSLayoutConstraint.activate([
             
-            viewStack.leftAnchor.constraint(greaterThanOrEqualTo: view.leftAnchor, constant: 5),
-            viewStack.rightAnchor.constraint(lessThanOrEqualTo: view.rightAnchor, constant: -5),
+            
+            viewStack.leftAnchor.constraint(greaterThanOrEqualTo: view.rightAnchor ,constant: 5),
+            viewStack.rightAnchor.constraint(lessThanOrEqualTo: view.leftAnchor,constant: -5),
+            
             viewStack.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -40),
             viewStack.topAnchor.constraint(equalTo: view.topAnchor, constant: 0),
             viewStack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -212,8 +226,10 @@ class LoginController:DecipherController, UITextFieldDelegate {
             passwordBox.bottomAnchor.constraint(equalTo: boxs.bottomAnchor),
             passwordBox.leftAnchor.constraint(equalTo: boxs.leftAnchor, constant: distance),
             passwordBox.rightAnchor.constraint(equalTo: boxs.rightAnchor, constant: -1 * distance),
+            passwordBox.widthAnchor.constraint(equalTo: credentialsContainer.widthAnchor, constant: -50),
+            usernameBox.widthAnchor.constraint(equalTo: credentialsContainer.widthAnchor, constant: -50),
             
-
+            
             boxs.heightAnchor.constraint(equalToConstant: 140 + boxDistance),
             credentialsContainerContainer.heightAnchor.constraint(equalToConstant: 140 + boxDistance + 100),
             credentialsContainer.heightAnchor.constraint(equalToConstant: 140 + boxDistance + 100),
@@ -221,7 +237,6 @@ class LoginController:DecipherController, UITextFieldDelegate {
             boxs.centerYAnchor.constraint(equalTo: credentialsContainer.centerYAnchor, constant: -20),
             logoc.heightAnchor.constraint(equalToConstant: 50),
             signupButton.widthAnchor.constraint(equalTo: logoc.widthAnchor, multiplier: 0.5),
-            
             forgotButton.widthAnchor.constraint(equalTo: logoc.widthAnchor, multiplier: 0.5),
             
             
@@ -236,7 +251,10 @@ class LoginController:DecipherController, UITextFieldDelegate {
             loginButton.leftAnchor.constraint(equalTo: skipButton.rightAnchor),
             loginButton.rightAnchor.constraint(equalTo: credentialsContainer.rightAnchor),
             loginButton.bottomAnchor.constraint(equalTo: credentialsContainer.bottomAnchor),
+          
             
+          
+
             
             credentialsContainer.topAnchor.constraint(equalTo: credentialsContainerContainer.topAnchor),
             credentialsContainer.bottomAnchor.constraint(equalTo: credentialsContainerContainer.bottomAnchor),
@@ -246,6 +264,15 @@ class LoginController:DecipherController, UITextFieldDelegate {
             
             ])
         
+        var constantForWidth:CGFloat = 500
+        if UIDevice.current.model == "iPhone" {
+            constantForWidth = view.frame.width
+        }
+        let topspace = UIView()
+        topspace.translatesAutoresizingMaskIntoConstraints = false
+        topspace.widthAnchor.constraint(equalToConstant: constantForWidth).isActive = true
+        topspace.heightAnchor.constraint(equalToConstant: 0).isActive = true
+        viewStack.addArrangedSubview(topspace)
         viewStack.addArrangedSubview(logo)
         viewStack.addArrangedSubview(credentialsContainerContainer)
         viewStack.addArrangedSubview(logoc)
@@ -314,8 +341,9 @@ class LoginController:DecipherController, UITextFieldDelegate {
                 passwordBox.resignFirstResponder()
             }
         } else {
-           appDelegate.Login(email:"guest@guest.com",password:"guestacct")
+//           appDelegate.Login(email:"guest@guest.com",password:"guestacct")
             //skip
+            appDelegate.Login(withoutCredentials: true)
         }
     }
 

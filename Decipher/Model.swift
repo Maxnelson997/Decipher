@@ -56,9 +56,6 @@ class Model {
         scanHistory = []
         
         setSettings()
-        
-        
-      
     }
     
     func setSettings() {
@@ -88,6 +85,7 @@ class Model {
     var settings:[[SettingModel]]!
     var browsers:[String]!
     var userSettings:UserSettings!
+    var woc:Bool = false
 
 }
 

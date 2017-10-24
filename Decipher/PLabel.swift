@@ -67,7 +67,7 @@ class PLabel: UILabel {
     fileprivate var insetValue:UIEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
     
     func PhaseTwo() {
-        self.font = UIFont.init(customFont: .ProximaNovaLight, withSize: size)
+        self.font = UIFont.init(customFont: .ProximaNovaSemibold, withSize: size)
         self.textColor = UIColor.white
         self.textAlignment = alignment
     }
@@ -75,4 +75,23 @@ class PLabel: UILabel {
     override func drawText(in rect: CGRect) {
         super.drawText(in: UIEdgeInsetsInsetRect(rect, self.insetValue))
     }
+    
+//    var attributedText: NSAttributedString {
+//        get {
+//            return self.attributedText
+//        }
+//        set {
+//            UIView.animate(withDuration: 0.3, animations: {
+//                self.alpha = 0
+//            }, completion: { finished in
+//                self.attributedText = newValue
+//                UIView.animate(withDuration: 0.3, animations: {
+//                    self.alpha = 1
+//                })
+//            })
+//            
+//            //            titleLabel?.attributedText = newValue
+//            
+//        }
+//    }
 }
