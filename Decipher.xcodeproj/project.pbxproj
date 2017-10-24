@@ -25,7 +25,6 @@
 		79B6BDE71F9A991500A40DFA /* Proxima Nova Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 79B6BDE31F9A991500A40DFA /* Proxima Nova Thin.ttf */; };
 		79B6BDE81F9A991500A40DFA /* Proxima Nova Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 79B6BDE41F9A991500A40DFA /* Proxima Nova Regular.otf */; };
 		79B6BDE91F9A991500A40DFA /* Proxima Nova Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 79B6BDE51F9A991500A40DFA /* Proxima Nova Semibold.ttf */; };
-		79B6BDEB1F9AA03600A40DFA /* square.png in Resources */ = {isa = PBXBuildFile; fileRef = 79B6BDEA1F9AA03600A40DFA /* square.png */; };
 		79B6BDED1F9AAF3E00A40DFA /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B6BDEC1F9AAF3E00A40DFA /* Model.swift */; };
 		79B6BDF01F9AAFC500A40DFA /* HistoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B6BDEF1F9AAFC500A40DFA /* HistoryModel.swift */; };
 		79B6BDF21F9AAFE200A40DFA /* SettingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B6BDF11F9AAFE200A40DFA /* SettingModel.swift */; };
@@ -84,7 +83,6 @@
 		79B6BDE31F9A991500A40DFA /* Proxima Nova Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Proxima Nova Thin.ttf"; sourceTree = "<group>"; };
 		79B6BDE41F9A991500A40DFA /* Proxima Nova Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Proxima Nova Regular.otf"; sourceTree = "<group>"; };
 		79B6BDE51F9A991500A40DFA /* Proxima Nova Semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Proxima Nova Semibold.ttf"; sourceTree = "<group>"; };
-		79B6BDEA1F9AA03600A40DFA /* square.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = square.png; sourceTree = "<group>"; };
 		79B6BDEC1F9AAF3E00A40DFA /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		79B6BDEF1F9AAFC500A40DFA /* HistoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryModel.swift; sourceTree = "<group>"; };
 		79B6BDF11F9AAFE200A40DFA /* SettingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingModel.swift; sourceTree = "<group>"; };
@@ -262,7 +260,6 @@
 				79DF4C841F99B677001CBB1D /* Assets.xcassets */,
 				790DEDB71F9E42B6003D0F8B /* GoogleService-Info.plist */,
 				79DF4C861F99B677001CBB1D /* LaunchScreen.storyboard */,
-				79B6BDEA1F9AA03600A40DFA /* square.png */,
 				79DF4C891F99B677001CBB1D /* Info.plist */,
 				79DF4C811F99B677001CBB1D /* Decipher.xcdatamodeld */,
 				79B6BDE11F9A991500A40DFA /* Proxima_Nova */,
@@ -444,7 +441,6 @@
 				790DEDB81F9E42B7003D0F8B /* GoogleService-Info.plist in Resources */,
 				79DF4C881F99B677001CBB1D /* LaunchScreen.storyboard in Resources */,
 				79B6BDE61F9A991500A40DFA /* Proxima Nova Light.otf in Resources */,
-				79B6BDEB1F9AA03600A40DFA /* square.png in Resources */,
 				79B6BDE81F9A991500A40DFA /* Proxima Nova Regular.otf in Resources */,
 				79B6BDE91F9A991500A40DFA /* Proxima Nova Semibold.ttf in Resources */,
 				79DF4C851F99B677001CBB1D /* Assets.xcassets in Resources */,
