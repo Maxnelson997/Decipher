@@ -48,7 +48,6 @@ class SettingsController: DecipherTableController {
             cell.isSwitch = true
             cell.swit.isOn = setting.status
             cell.swit.tag = indexPath.item
-          
             cell.swit.addTarget(model.settingsLogic, action: setting.selector, for: .valueChanged)
         } else {
             cell.addGestureRecognizer(UITapGestureRecognizer(target: model.settingsLogic, action: setting.selector))

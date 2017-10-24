@@ -18,14 +18,14 @@ class HistoryController: DecipherTableController {
     }
     
     func reloadHistory() {
-        if model.userSettings.saveScansInHistory {
             if tableView.dataSource != nil {
                 tableView.reloadData()
             } else {
                 tableView.delegate = self
                 tableView.dataSource = self
             }
-        }
+  
+        
     }
     
     //datasource

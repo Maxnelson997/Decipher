@@ -28,19 +28,26 @@ class SettingsLogic {
             deli.history.reloadHistory()
         }
         Model.instance.userSettings.saveScansInHistory = sender.isOn
+        let uid = Auth.auth().currentUser?.uid
+        deli.db.child("users").child(uid!).updateChildValues(["saveScansInHistory":Model.instance.userSettings.saveScansInHistory])
     }
     
     @objc func soundEffects(sender:UISwitch) {
+        Model.instance.userSettings.soundEffects = sender.isOn
         let uid = Auth.auth().currentUser?.uid
-        deli.db.child("users").child(uid!).setValue(["soundEffects":Model.instance.userSettings.soundEffects])
+        deli.db.child("users").child(uid!).updateChildValues(["soundEffects":Model.instance.userSettings.soundEffects])
     }
     
     @objc func vibrateOnScan(sender:UISwitch) {
-        
+        Model.instance.userSettings.vibrateOnScan = sender.isOn
+        let uid = Auth.auth().currentUser?.uid
+        deli.db.child("users").child(uid!).updateChildValues(["vibrateOnScan":Model.instance.userSettings.vibrateOnScan])
     }
 
     @objc func laserAnimation(sender:UISwitch) {
-        
+        Model.instance.userSettings.laserAnimation = sender.isOn
+        let uid = Auth.auth().currentUser?.uid
+        deli.db.child("users").child(uid!).updateChildValues(["laserAnimation":Model.instance.userSettings.laserAnimation])
     }
     
     //social
@@ -90,6 +97,7 @@ class SettingsLogic {
     @objc func clearScans() {
         //clear them scannaroonies.
         Model.instance.scanHistory = []
+        deli.syncScans()
         deli.history.reloadHistory()
         //tell the user too tho.
         let alertController = UIAlertController(title: "Yo!", message: "History Scans Cleared", preferredStyle: .alert)

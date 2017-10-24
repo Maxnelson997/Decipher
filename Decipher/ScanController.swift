@@ -170,12 +170,17 @@ class ScanController: DecipherController, AVCaptureMetadataOutputObjectsDelegate
     }
     
     func displayDetailsViewController(scannedCode: String) {
+        let deli = (UIApplication.shared.delegate as! AppDelegate)
         let detailsViewController = DetailsViewController()
         detailsViewController.scannedCode = scannedCode
         let historyItem = HistoryModel(title: scannedCode)
-        Model.instance.scanHistory.append(historyItem)
-        (UIApplication.shared.delegate as! AppDelegate).syncScans()
-        (UIApplication.shared.delegate as! AppDelegate).history.reloadHistory()
+        if Model.instance.userSettings.saveScansInHistory {
+            Model.instance.scanHistory.append(historyItem)
+        } else {
+            Model.instance.scanHistory = []
+        }
+        deli.syncScans()
+        deli.history.reloadHistory()
         //navigationController?.pushViewController(detailsViewController, animated: true)
         present(detailsViewController, animated: true, completion: nil)
     }

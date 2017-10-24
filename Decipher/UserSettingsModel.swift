@@ -18,7 +18,6 @@ class UserSettings {
     var vibrateOnScan:Bool!
     var laserAnimation:Bool!
     
-    var scanHistory:[HistoryModel]!
     
     init(browser:String, browserIcon:FAType, saveScansInHistory:Bool, soundEffects:Bool, vibrateOnScan:Bool, laserAnimation:Bool) {
         self.browser = browser
@@ -43,9 +42,9 @@ class UserSettings {
     
     
     func getScanHistoryArray() -> NSArray {
-        scanHistory = Model.instance.scanHistory
+
         var scanHistoryArray:[NSDictionary] = []
-        for scan in scanHistory {
+        for scan in Model.instance.scanHistory {
             scanHistoryArray.append(scan.asDictionaryForFirebase())
         }
         return NSArray(array: scanHistoryArray)

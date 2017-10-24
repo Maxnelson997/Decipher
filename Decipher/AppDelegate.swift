@@ -23,8 +23,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var scan:ScanController!
     var history:HistoryController!
     var settings:SettingsController!
+    
+    var historyNav:UINavigationController!
+    var settingsNav:UINavigationController!
+    var scanNav:UINavigationController!
 
     var tabBarController:UITabBarController!
+    
     
     //Firebase
     var db:DatabaseReference!
@@ -43,9 +48,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
                 //DB JUNK
                 //save the user into the database
-                self.db.child("users").child(uid!).setValue(["username":email])
-            
-                
+                self.db.child("users").child(uid!).updateChildValues(["username":email])
+          
                 
                 if let user = user {
                     if let emailForNewUser = user.email {
@@ -113,7 +117,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
        
     }
     
+    func regenerateControllers() {
+        Model.instance.setSettings()
+        tabBarController.selectedIndex = 1
+        settings.reloadHistory()
+        history.reloadHistory()
+    }
+    
     @objc func Logout() {
+        //reset all data
+        regenerateControllers()
+        Model.instance.scanHistory = []
         let firebaseAuth = Auth.auth()
         print("user with uid: ")
         print(String(describing: firebaseAuth.currentUser?.uid))
@@ -138,7 +152,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     @objc func syncScans() {
         let uid = Auth.auth().currentUser?.uid
-        self.db.child("users").child(uid!).setValue(["scanHistory":Model.instance.userSettings.getScanHistoryArray()])
+ 
+//        self.db.child("users").child(uid!).setValue([)
+        self.db.child("users").child(uid!).updateChildValues(["scanHistory":Model.instance.userSettings.getScanHistoryArray()])
     }
     
     @objc func retrieveScans() {
@@ -154,8 +170,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             } else {
                 print("no scans?")
             }
-            
-            
+            if let saveScansInHistory = value?["saveScansInHistory"] as? Bool {
+                Model.instance.userSettings.saveScansInHistory = saveScansInHistory
+            }
+            if let soundEffects = value?["soundEffects"] as? Bool {
+                Model.instance.userSettings.soundEffects = soundEffects
+            }
+            if let vibrateOnScan = value?["vibrateOnScan"] as? Bool {
+                Model.instance.userSettings.vibrateOnScan = vibrateOnScan
+            }
+            if let laserAnimation = value?["laserAnimation"] as? Bool {
+                Model.instance.userSettings.laserAnimation = laserAnimation
+            }
+            //update the settings. values for settings tableview.
+            Model.instance.setSettings()
         }) { (error) in
             print(error.localizedDescription)
         }
@@ -281,8 +309,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
            self.navigationController.navigationBar.transform = CGAffineTransform(translationX: 0, y: 0)
         }) { (true) in }
     }
-    
-    var scanNav:UINavigationController!
+ 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
@@ -315,11 +342,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        scanNav1.tabBarItem.setFAIcon(icon: .FAQrcode, size: nil, orientation: .up, textColor: UIColor.white, backgroundColor: UIColor.clear, selectedTextColor: UIColor.MNGreen.withAlphaComponent(1), selectedBackgroundColor: .clear)
 //        scanNav1.tabBarItem.setTitleTextAttributes([NSAttributedStringKey.font:UIFont.init(customFont: .ProximaNovaLight, withSize: 16)!, NSAttributedStringKey.foregroundColor:UIColor.white], for: .normal)
         
-        let historyNav = UINavigationController(rootViewController: history)
+        historyNav = UINavigationController(rootViewController: history)
         historyNav.tabBarItem.title = "history"
         historyNav.tabBarItem.setFAIcon(icon: .FAHistory, size: nil, orientation: .up, textColor: UIColor.white, backgroundColor: UIColor.clear, selectedTextColor: UIColor.MNGreen.withAlphaComponent(1), selectedBackgroundColor: .clear)
         historyNav.tabBarItem.setTitleTextAttributes([NSAttributedStringKey.font:UIFont.init(customFont: .ProximaNovaLight, withSize: 16)!, NSAttributedStringKey.foregroundColor:UIColor.white], for: .normal)
-        let settingsNav = UINavigationController(rootViewController: settings)
+        settingsNav = UINavigationController(rootViewController: settings)
         settingsNav.tabBarItem.title = "settings"
       
         settingsNav.tabBarItem.setFAIcon(icon: .FACogs, size: nil, orientation: .up, textColor: UIColor.white, backgroundColor: UIColor.clear, selectedTextColor: UIColor.MNGreen.withAlphaComponent(1), selectedBackgroundColor: .clear)
