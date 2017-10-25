@@ -104,9 +104,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 if description == "The password is invalid or the user does not have a password." {
                     description = "Invalid username or password."
                 }
+                delay(0.1, closure: {
+                    self.loadAnimation.stopAnimating()
+                    self.login.uistate(active: true)
+                })
                 let alertController = UIAlertController(title: "Heads Up", message: description, preferredStyle: .alert)
                 let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
                 alertController.addAction(okAction)
+
                 self.login.present(alertController, animated: true, completion: nil)
             } else {
                 print("login success")
@@ -120,11 +125,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 
                 self.navigationController.pushViewController(self.tabBarController, animated: true)
             }
+
             self.loadAnimation.stopAnimating()
             self.login.uistate(active: true)
             
-            
         }
+
        
     }
     

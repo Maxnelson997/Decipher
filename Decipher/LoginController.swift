@@ -27,8 +27,11 @@ class LoginController:DecipherController, UITextFieldDelegate {
         forgotButton.isUserInteractionEnabled = active
         signupButton.isUserInteractionEnabled = active
     }
-
     
+    override func viewWillDisappear(_ animated: Bool) {
+        current.resignFirstResponder()
+    }
+
     override func viewDidAppear(_ animated: Bool) {
         UIView.animate(withDuration: 0.3, animations: {
             self.navigationController?.navigationBar.transform = CGAffineTransform(translationX: 0, y: -200)

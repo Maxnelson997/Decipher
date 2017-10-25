@@ -126,7 +126,7 @@ class ScanController: DecipherController, AVCaptureMetadataOutputObjectsDelegate
     
     override func viewDidDisappear(_ animated: Bool) {
         captureSession?.stopRunning()
-        videoPreviewLayer!.removeFromSuperlayer()
+//        videoPreviewLayer!.removeFromSuperlayer()
     }
     override func viewDidAppear(_ animated: Bool) {
 //        generateCapture()

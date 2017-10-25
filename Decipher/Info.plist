@@ -4,6 +4,8 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>CFBundleDisplayName</key>
+	<string>Decipher</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -16,6 +18,23 @@
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
+	<key>CFBundleSpokenName</key>
+	<string></string>
+	<key>CFBundleVersion</key>
+	<string>1</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>instagram</string>
+	</array>
+	<key>LSRequiresIPhoneOS</key>
+	<true/>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
+	<key>NSCameraUsageDescription</key>
+	<string>We need the camera for such QR scanning activites to take place.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>MavenPro-Regular.ttf</string>
@@ -27,29 +46,12 @@
 		<string>Proxima Nova Light.otf</string>
 		<string>Proxima Nova Regular.otf</string>
 	</array>
-	<key>CFBundleVersion</key>
-	<string>1</string>
-	<key>LSApplicationQueriesSchemes</key>
-	<array>
-		<string>instagram</string>
-	</array>
-	<key>LSRequiresIPhoneOS</key>
-	<true/>
-	<key>CFBundleSpokenName</key>
-	<string></string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
-	<key>NSCameraUsageDescription</key>
-	<string>Sir, we gonna need the camera for such activites.</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>
 	</array>
-	<key>NSAppTransportSecurity</key>
-	<dict>
-		<key>NSAllowsArbitraryLoads</key>
-		<true/>
-	</dict>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>

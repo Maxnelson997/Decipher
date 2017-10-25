@@ -68,7 +68,7 @@ class SettingsLogic {
     
     @objc func rate() {
         //TO-DO: replace maxthedev with appstore review link
-        let url = URL(string: "http://maxthedev.com")!
+        let url = URL(string: "https://itunes.apple.com/us/app/decipher-qr-code-scanner/id1299774528?ls=1&mt=8")!
         if UIApplication.shared.canOpenURL(url) {
             UIApplication.shared.open(url, options: ["":""], completionHandler: nil)
         } else {
